@@ -1,242 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Syllabus Learning Content | Trivarta Tech</title>
-  <meta name="description" content="Cloud-based digital learning content with game-based learning, diagnostics, and flexible assessments.">
-  <link rel="icon" type="image/png" href="assets/images/favicon.png">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: { primary: '#FF3B30', 'primary-hover': '#D32F2F', dark: '#0F0F0F', surface: '#1A1A1A', 'surface-hl': '#262626' },
-          fontFamily: { display: ['Syne','sans-serif'], body: ['Outfit','sans-serif'] }
-        }
-      }
-    }
-  </script>
-  <link rel="stylesheet" href="assets/css/style.css">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Syllabus Content — Trivarta Tech</title>
+  <meta name="description" content="Digital curriculum and content management platform by Trivarta Tech for schools and educators."/>
+  <link rel="icon" href="assets/images/favicon.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <link rel="stylesheet" href="assets/css/style.css"/>
+  <script src="assets/js/main.js" defer></script>
 </head>
-<body class="bg-dark font-body mesh-bg">
+<body>
 
-  <!-- NAVBAR -->
-  <nav id="navbar" class="fixed top-0 left-0 w-full z-50" data-testid="navbar">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-20">
-        <a href="/" class="flex items-center"><img src="assets/images/logo.png" alt="Trivarta Tech" class="h-12 sm:h-14"></a>
-        <div class="hidden lg:flex items-center gap-8">
-          <a href="/" class="nav-link">Home</a>
-          <a href="/about" class="nav-link">About</a>
-          <div class="relative group">
-            <a href="/products" class="nav-link active flex items-center gap-1.5">Products <i class="fas fa-chevron-down text-[10px] transition-transform duration-300 group-hover:rotate-180"></i></a>
-            <div class="dropdown-menu absolute top-full left-1/2 -translate-x-1/2 mt-3 w-60 bg-surface border border-[#333] rounded-xl overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-              <a href="/school-erp" class="block px-5 py-3.5 text-sm text-white/70 hover:text-white hover:bg-white/5 transition-all"><i class="fas fa-building-columns mr-2 text-primary/70 text-xs"></i>School's One - ERP</a>
-              <a href="/syllabus-content" class="block px-5 py-3.5 text-sm text-white hover:bg-white/5 transition-all bg-white/5"><i class="fas fa-book-open mr-2 text-primary text-xs"></i>Syllabus Learning Content</a>
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><img src="assets/images/logo.png" alt="Trivarta Tech"/></a>
+    <div class="nav-links">
+      <a href="/" class="nav-link">Home</a>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-toggle">Products <i class="fas fa-chevron-down"></i></div>
+        <div class="nav-dropdown-menu">
+          <a href="school-erp.html" class="nav-dropdown-item"><i class="fas fa-graduation-cap"></i>School ERP</a>
+          <a href="smart-panel.html" class="nav-dropdown-item"><i class="fas fa-solar-panel"></i>Smart Panel</a>
+          <a href="syllabus-content.html" class="nav-dropdown-item"><i class="fas fa-book-open"></i>Syllabus Content</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-toggle">Services <i class="fas fa-chevron-down"></i></div>
+        <div class="nav-dropdown-menu">
+          <a href="web-application.html" class="nav-dropdown-item"><i class="fas fa-globe"></i>Web Application</a>
+          <a href="mobile-application.html" class="nav-dropdown-item"><i class="fas fa-mobile-alt"></i>Mobile Application</a>
+          <a href="website-development.html" class="nav-dropdown-item"><i class="fas fa-code"></i>Website Development</a>
+        </div>
+      </div>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+    <div class="nav-cta"><a href="contact.html" class="btn btn-primary btn-sm magnetic">Get Demo</a></div>
+    <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu">
+  <a href="/" class="mobile-nav-link"><i class="fas fa-home"></i>Home</a>
+  <div class="mobile-nav-section">Products</div>
+  <a href="school-erp.html" class="mobile-nav-link"><i class="fas fa-graduation-cap"></i>School ERP</a>
+  <a href="smart-panel.html" class="mobile-nav-link"><i class="fas fa-solar-panel"></i>Smart Panel</a>
+  <a href="syllabus-content.html" class="mobile-nav-link"><i class="fas fa-book-open"></i>Syllabus Content</a>
+  <div class="mobile-nav-section">Services</div>
+  <a href="web-application.html" class="mobile-nav-link"><i class="fas fa-globe"></i>Web Application</a>
+  <a href="mobile-application.html" class="mobile-nav-link"><i class="fas fa-mobile-alt"></i>Mobile Application</a>
+  <a href="website-development.html" class="mobile-nav-link"><i class="fas fa-code"></i>Website Development</a>
+  <div class="mobile-divider"></div>
+  <a href="about.html" class="mobile-nav-link"><i class="fas fa-info-circle"></i>About</a>
+  <a href="contact.html" class="mobile-nav-link"><i class="fas fa-envelope"></i>Contact</a>
+  <div class="mobile-divider"></div>
+  <a href="contact.html" class="btn btn-primary" style="margin-top:8px">Get Demo <i class="fas fa-arrow-right"></i></a>
+</div>
+
+<section class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-grid"></div>
+  <div class="container">
+    <div class="section-tag reveal"><i class="fas fa-book-open"></i> Syllabus Content</div>
+    <h1 class="reveal">Digital Curriculum for<br><span class="gradient-text">Modern Schools</span></h1>
+    <p class="lead reveal" style="margin-top:16px">Organise, distribute, and track educational content — videos, PDFs, quizzes — in one structured, mobile-friendly platform.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:28px" class="reveal">
+      <a href="contact.html" class="btn btn-primary btn-lg magnetic">Request Demo <i class="fas fa-arrow-right"></i></a>
+      <a href="contact.html" class="btn btn-ghost btn-lg">Learn More</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-tag"><i class="fas fa-star"></i> Features</div>
+      <h2>Everything Teachers Need to Teach Better</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="grid-3">
+      <div class="card reveal reveal-d1">
+        <div class="card-icon"><i class="fas fa-layer-group"></i></div>
+        <h3>Structured Curriculum</h3>
+        <p>Organise content by board, class, subject, chapter, and topic. Every piece of content has a clear place in the learning path.</p>
+      </div>
+      <div class="card reveal reveal-d2">
+        <div class="card-icon"><i class="fas fa-video"></i></div>
+        <h3>Multimedia Content</h3>
+        <p>Upload and stream video lessons, attach PDFs, create interactive quizzes, and embed external resources.</p>
+      </div>
+      <div class="card reveal reveal-d3">
+        <div class="card-icon"><i class="fas fa-chart-bar"></i></div>
+        <h3>Progress Tracking</h3>
+        <p>Know exactly which students completed which topics — and how long they spent. Identify gaps before exams.</p>
+      </div>
+      <div class="card reveal reveal-d1">
+        <div class="card-icon"><i class="fas fa-mobile-alt"></i></div>
+        <h3>Mobile App Access</h3>
+        <p>Students access content on Android or iOS. Offline mode lets them learn without an internet connection.</p>
+      </div>
+      <div class="card reveal reveal-d2">
+        <div class="card-icon"><i class="fas fa-language"></i></div>
+        <h3>Multi-Language Support</h3>
+        <p>Content available in English, Hindi, and major regional Indian languages for inclusive learning.</p>
+      </div>
+      <div class="card reveal reveal-d3">
+        <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
+        <h3>Secure Content Delivery</h3>
+        <p>DRM protection for video content. Watermarking and access control to protect your intellectual property.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--bg2)">
+  <div class="container">
+    <div class="split">
+      <div class="reveal-l">
+        <div class="section-tag"><i class="fas fa-users"></i> Who Uses It</div>
+        <h2>For Teachers, Students & Admins</h2>
+        <p style="margin-top:16px;margin-bottom:24px">Three interfaces, one platform. Teachers upload content, students consume it, admins track everything.</p>
+        <div class="feature-list">
+          <div class="feature-item">
+            <div class="feature-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+            <div><h4>Teachers</h4><p>Upload, organise and share content. Track student progress. Create topic-wise assessments.</p></div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon"><i class="fas fa-user-graduate"></i></div>
+            <div><h4>Students</h4><p>Access study material any time, on any device. Resume where they left off. Take practice tests.</p></div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon"><i class="fas fa-user-tie"></i></div>
+            <div><h4>Admins</h4><p>Manage curriculum across multiple classes. Assign content by batch. Export progress reports.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal-r">
+        <div class="card" style="padding:28px">
+          <h4 style="margin-bottom:20px;color:#ccc">Class 10 — Science</h4>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="background:var(--s2);border-radius:10px;padding:14px;border:1px solid var(--b1)">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+                <span style="font-size:0.85rem;font-weight:600">Chapter 1: Chemical Reactions</span>
+                <span class="tag tag-green" style="font-size:0.7rem">100%</span>
+              </div>
+              <div style="background:var(--b1);border-radius:4px;height:4px"><div style="background:var(--green);height:4px;border-radius:4px;width:100%"></div></div>
+            </div>
+            <div style="background:var(--s2);border-radius:10px;padding:14px;border:1px solid var(--b1)">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+                <span style="font-size:0.85rem;font-weight:600">Chapter 2: Acids and Bases</span>
+                <span class="tag tag-orange" style="font-size:0.7rem">68%</span>
+              </div>
+              <div style="background:var(--b1);border-radius:4px;height:4px"><div style="background:var(--orange);height:4px;border-radius:4px;width:68%"></div></div>
+            </div>
+            <div style="background:var(--s2);border-radius:10px;padding:14px;border:1px solid var(--b1)">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+                <span style="font-size:0.85rem;font-weight:600">Chapter 3: Metals and Non-metals</span>
+                <span class="tag tag-red" style="font-size:0.7rem">22%</span>
+              </div>
+              <div style="background:var(--b1);border-radius:4px;height:4px"><div style="background:var(--red);height:4px;border-radius:4px;width:22%"></div></div>
             </div>
           </div>
-          <div class="relative group" data-testid="nav-services-dropdown">
-            <a href="/services" class="nav-link flex items-center gap-1.5">Services <i class="fas fa-chevron-down text-[10px] transition-transform duration-300 group-hover:rotate-180"></i></a>
-            <div class="dropdown-menu absolute top-full left-1/2 -translate-x-1/2 mt-3 w-64 bg-surface border border-[#333] rounded-xl overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-              <a href="/website-development" class="block px-5 py-3.5 text-sm text-white/70 hover:text-white hover:bg-white/5 transition-all"><i class="fas fa-globe mr-2 text-primary/70 text-xs"></i>Website Development</a>
-              <a href="/web-application" class="block px-5 py-3.5 text-sm text-white/70 hover:text-white hover:bg-white/5 transition-all"><i class="fas fa-laptop-code mr-2 text-primary/70 text-xs"></i>Web Application Development</a>
-              <a href="/mobile-application" class="block px-5 py-3.5 text-sm text-white/70 hover:text-white hover:bg-white/5 transition-all"><i class="fas fa-mobile-screen mr-2 text-primary/70 text-xs"></i>Mobile App Development</a>
-            </div>
-          </div>
-          <a href="/smart-panel" class="nav-link">Smart Panel</a>
-          <a href="/contact" class="nav-link">Contact</a>
-          <a href="assets/brochure/Trivarta-Tech-brochure.pdf" download class="btn-primary text-sm !py-2.5 !px-5" data-testid="nav-download-brochure"><i class="fas fa-download"></i> Brochure</a>
-        </div>
-        <button id="mobile-menu-btn" class="lg:hidden text-white text-xl p-2"><i class="fas fa-bars"></i></button>
-      </div>
-    </div>
-    <div id="mobile-menu" class="lg:hidden hidden bg-dark/95 backdrop-blur-xl border-t border-white/5">
-      <div class="max-w-7xl mx-auto px-4 py-6 space-y-1">
-        <a href="/" class="block text-white/70 hover:text-white py-2.5 px-3 rounded-lg hover:bg-white/5 text-sm">Home</a>
-        <a href="/about" class="block text-white/70 hover:text-white py-2.5 px-3 rounded-lg hover:bg-white/5 text-sm">About</a>
-        <a href="/products" id="mobile-products-toggle" class="flex items-center justify-between text-white/70 hover:text-white py-2.5 px-3 rounded-lg hover:bg-white/5 text-sm">Products <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i></a>
-        <div id="mobile-products-submenu" class="hidden pl-4 space-y-1">
-          <a href="/school-erp" class="block text-white/50 hover:text-white py-2 px-3 rounded-lg hover:bg-white/5 text-sm">School's One - ERP</a>
-          <a href="/syllabus-content" class="block text-white py-2 px-3 rounded-lg bg-white/5 text-sm">Syllabus Learning Content</a>
-        </div>
-        <a href="/services" id="mobile-services-toggle" class="flex items-center justify-between text-white/70 hover:text-white py-2.5 px-3 rounded-lg hover:bg-white/5 transition-all text-sm">Services <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i></a>
-        <div id="mobile-services-submenu" class="hidden pl-4 space-y-1">
-          <a href="/website-development" class="block text-white/50 hover:text-white py-2 px-3 rounded-lg hover:bg-white/5 transition-all text-sm">Website Development</a>
-          <a href="/web-application" class="block text-white/50 hover:text-white py-2 px-3 rounded-lg hover:bg-white/5 transition-all text-sm">Web Application Development</a>
-          <a href="/mobile-application" class="block text-white/50 hover:text-white py-2 px-3 rounded-lg hover:bg-white/5 transition-all text-sm">Mobile App Development</a>
-        </div>
-        <a href="/smart-panel" class="block text-white/70 hover:text-white py-2.5 px-3 rounded-lg hover:bg-white/5 text-sm">Smart Panel</a>
-        <a href="/contact" class="block text-white/70 hover:text-white py-2.5 px-3 rounded-lg hover:bg-white/5 text-sm">Contact</a>
-        <div class="pt-3"><a href="assets/brochure/Trivarta-Tech-brochure.pdf" download class="btn-primary text-sm inline-flex" data-testid="mobile-download-brochure"><i class="fas fa-download"></i> Download Brochure</a></div>
-      </div>
-    </div>
-  </nav>
-  <!-- HERO -->
-  <section class="hero-mini mesh-bg" data-testid="syllabus-hero">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <div class="flex items-center gap-3 mb-4 anim-fadeInUp">
-        <a href="/products" class="text-white/40 text-xs hover:text-white/60 transition-colors">Products</a>
-        <i class="fas fa-chevron-right text-white/20 text-[8px]"></i>
-        <span class="text-primary text-xs">Syllabus Learning Content</span>
-      </div>
-      <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-white tracking-tight anim-fadeInUp anim-delay-1">Syllabus Learning <span class="gradient-text">Content</span></h1>
-      <p class="text-white/50 text-base sm:text-lg mt-5 max-w-2xl anim-fadeInUp anim-delay-2">Cloud-based digital learning content with a complete learning cycle designed to enhance student outcomes.</p>
-    </div>
-  </section>
-
-  <!-- LEARNING CYCLE -->
-  <section class="py-20 md:py-28" data-testid="learning-cycle-section">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-14" data-aos="fade-up">
-        <span class="text-primary text-xs font-semibold tracking-widest uppercase font-display">Methodology</span>
-        <h2 class="font-display font-bold text-2xl sm:text-3xl lg:text-4xl text-white mt-3 tracking-tight">The Learning Cycle</h2>
-        <div class="section-line mx-auto mt-5"></div>
-      </div>
-
-      <div class="cycle-container" data-aos="zoom-in" data-testid="learning-cycle-diagram">
-        <!-- Orbit ring -->
-        <div class="cycle-ring"></div>
-        <!-- Center -->
-        <div class="cycle-center">
-          <span class="text-primary font-display font-bold text-[10px] sm:text-xs leading-tight text-center">Learning<br>Cycle</span>
-        </div>
-        <!-- 5 Nodes -->
-        <div class="cycle-node" data-testid="cycle-diagnose">
-          <i class="fas fa-stethoscope"></i>
-          <span>Diagnose</span>
-        </div>
-        <div class="cycle-node" data-testid="cycle-learn">
-          <i class="fas fa-graduation-cap"></i>
-          <span>Learn</span>
-        </div>
-        <div class="cycle-node" data-testid="cycle-evaluate">
-          <i class="fas fa-chart-line"></i>
-          <span>Evaluate</span>
-        </div>
-        <div class="cycle-node" data-testid="cycle-test">
-          <i class="fas fa-clipboard-list"></i>
-          <span>Test</span>
-        </div>
-        <div class="cycle-node" data-testid="cycle-practice">
-          <i class="fas fa-pen-ruler"></i>
-          <span>Practice</span>
-        </div>
-      </div>
-
-      <!-- Mobile fallback: simple list -->
-      <div class="sm:hidden mt-10 space-y-3">
-        <div class="flex items-center gap-4 bg-surface border border-[#333] rounded-xl p-4">
-          <div class="w-10 h-10 rounded-full bg-primary/15 flex items-center justify-center flex-shrink-0"><i class="fas fa-stethoscope text-primary text-sm"></i></div>
-          <div><h4 class="text-white text-sm font-semibold">1. Diagnose</h4><p class="text-white/40 text-xs">Identify learning gaps</p></div>
-        </div>
-        <div class="flex items-center gap-4 bg-surface border border-[#333] rounded-xl p-4">
-          <div class="w-10 h-10 rounded-full bg-primary/15 flex items-center justify-center flex-shrink-0"><i class="fas fa-graduation-cap text-primary text-sm"></i></div>
-          <div><h4 class="text-white text-sm font-semibold">2. Learn</h4><p class="text-white/40 text-xs">Interactive content delivery</p></div>
-        </div>
-        <div class="flex items-center gap-4 bg-surface border border-[#333] rounded-xl p-4">
-          <div class="w-10 h-10 rounded-full bg-primary/15 flex items-center justify-center flex-shrink-0"><i class="fas fa-chart-line text-primary text-sm"></i></div>
-          <div><h4 class="text-white text-sm font-semibold">3. Evaluate</h4><p class="text-white/40 text-xs">Measure understanding</p></div>
-        </div>
-        <div class="flex items-center gap-4 bg-surface border border-[#333] rounded-xl p-4">
-          <div class="w-10 h-10 rounded-full bg-primary/15 flex items-center justify-center flex-shrink-0"><i class="fas fa-clipboard-list text-primary text-sm"></i></div>
-          <div><h4 class="text-white text-sm font-semibold">4. Test</h4><p class="text-white/40 text-xs">Assess knowledge retention</p></div>
-        </div>
-        <div class="flex items-center gap-4 bg-surface border border-[#333] rounded-xl p-4">
-          <div class="w-10 h-10 rounded-full bg-primary/15 flex items-center justify-center flex-shrink-0"><i class="fas fa-pen-ruler text-primary text-sm"></i></div>
-          <div><h4 class="text-white text-sm font-semibold">5. Practice</h4><p class="text-white/40 text-xs">Reinforce through repetition</p></div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- FEATURES GRID -->
-  <section class="py-16 md:py-24 border-t border-white/5" data-testid="features-section">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-14" data-aos="fade-up">
-        <span class="text-primary text-xs font-semibold tracking-widest uppercase font-display">Capabilities</span>
-        <h2 class="font-display font-bold text-2xl sm:text-3xl lg:text-4xl text-white mt-3 tracking-tight">Platform Features</h2>
-        <div class="section-line mx-auto mt-5"></div>
-      </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-
-        <div class="card" data-aos="fade-up" data-aos-delay="100" data-testid="feature-cloud">
-          <div class="icon-box mb-5"><i class="fas fa-cloud text-primary text-xl"></i></div>
-          <h3 class="font-display font-semibold text-lg text-white mb-2">Cloud-Based Content</h3>
-          <p class="text-white/45 text-sm leading-relaxed">Access learning materials anytime, anywhere with cloud-hosted content that's always up-to-date.</p>
-        </div>
-
-        <div class="card" data-aos="fade-up" data-aos-delay="200" data-testid="feature-game">
-          <div class="icon-box mb-5"><i class="fas fa-gamepad text-primary text-xl"></i></div>
-          <h3 class="font-display font-semibold text-lg text-white mb-2">Game-Based Learning</h3>
-          <p class="text-white/45 text-sm leading-relaxed">Engaging gamified content that makes learning fun and boosts student motivation and retention.</p>
-        </div>
-
-        <div class="card" data-aos="fade-up" data-aos-delay="300" data-testid="feature-tests">
-          <div class="icon-box mb-5"><i class="fas fa-bolt text-primary text-xl"></i></div>
-          <h3 class="font-display font-semibold text-lg text-white mb-2">Power Tests</h3>
-          <p class="text-white/45 text-sm leading-relaxed">Comprehensive testing tools with adaptive difficulty levels to challenge and assess students effectively.</p>
-        </div>
-
-        <div class="card" data-aos="fade-up" data-aos-delay="100" data-testid="feature-practice">
-          <div class="icon-box mb-5"><i class="fas fa-infinity text-primary text-xl"></i></div>
-          <h3 class="font-display font-semibold text-lg text-white mb-2">Unlimited Practice</h3>
-          <p class="text-white/45 text-sm leading-relaxed">Endless practice sessions with auto-generated questions to reinforce learning and build mastery.</p>
-        </div>
-
-        <div class="card" data-aos="fade-up" data-aos-delay="200" data-testid="feature-assessments">
-          <div class="icon-box mb-5"><i class="fas fa-sliders text-primary text-xl"></i></div>
-          <h3 class="font-display font-semibold text-lg text-white mb-2">Flexible Assessments</h3>
-          <p class="text-white/45 text-sm leading-relaxed">Customizable assessment formats including MCQ, short answer, descriptive, and project-based evaluations.</p>
-        </div>
-
-        <div class="card" data-aos="fade-up" data-aos-delay="300" data-testid="feature-analytics">
-          <div class="icon-box mb-5"><i class="fas fa-chart-pie text-primary text-xl"></i></div>
-          <h3 class="font-display font-semibold text-lg text-white mb-2">Performance Analytics</h3>
-          <p class="text-white/45 text-sm leading-relaxed">Detailed insights into student progress with visual reports for teachers and parents.</p>
-        </div>
-
+<section class="section">
+  <div class="container">
+    <div class="cta-block reveal">
+      <h2>Ready to go <span class="gradient-text">paperless?</span></h2>
+      <p>Replace printed syllabi with a dynamic, trackable, digital learning platform.</p>
+      <div class="cta-actions">
+        <a href="contact.html" class="btn btn-primary btn-lg magnetic">Book Free Demo <i class="fas fa-arrow-right"></i></a>
+        <a href="https://wa.me/919999999999" class="btn-wa btn-lg" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i>WhatsApp Us</a>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- CTA -->
-  <section class="py-16 md:py-20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="cta-gradient shimmer-border p-8 sm:p-12 text-center" data-aos="fade-up">
-        <h2 class="font-display font-bold text-2xl sm:text-3xl text-white tracking-tight">Transform Learning at Your Institution</h2>
-        <p class="text-white/50 text-sm mt-3 max-w-lg mx-auto">See how our digital learning content can improve student outcomes and teacher effectiveness.</p>
-        <div class="flex flex-wrap justify-center gap-4 mt-8">
-          <a href="https://wa.me/918660234312" target="_blank" class="btn-whatsapp" data-testid="syllabus-cta-whatsapp"><i class="fab fa-whatsapp text-lg"></i> Request a Demo</a>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo"><img src="assets/images/logo.png" alt="Trivarta Tech"/><span>Trivarta Tech</span></div>
+        <p>Building tomorrow's digital infrastructure for schools and businesses across India.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
         </div>
       </div>
+      <div class="footer-col"><h4>Products</h4><a href="school-erp.html">School ERP</a><a href="smart-panel.html">Smart Panel</a><a href="syllabus-content.html">Syllabus Content</a></div>
+      <div class="footer-col"><h4>Services</h4><a href="web-application.html">Web Application</a><a href="mobile-application.html">Mobile Application</a><a href="website-development.html">Website Development</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="about.html">About Us</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a></div>
     </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="bg-[#0A0A0A] border-t border-white/5 pt-16 pb-8" data-testid="footer">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
-        <div><img src="assets/images/logo.png" alt="Trivarta Tech" class="h-12 mb-4"><p class="text-white/40 text-sm leading-relaxed">Smart Digital Solutions for Education.</p></div><h4 class="text-white font-display font-semibold text-sm mb-4">Quick Links</h4><div class="space-y-2.5"><a href="/" class="block text-white/40 hover:text-primary transition-colors text-sm">Home</a><a href="/about" class="block text-white/40 hover:text-primary transition-colors text-sm">About</a><a href="/products" class="block text-white/40 hover:text-primary transition-colors text-sm">Products</a><a href="/services" class="block text-white/40 hover:text-primary transition-colors text-sm">Services</a><a href="/contact" class="block text-white/40 hover:text-primary transition-colors text-sm">Contact</a></div></div>
-        <div><h4 class="text-white font-display font-semibold text-sm mb-4">Products</h4><div class="space-y-2.5"><a href="/school-erp" class="block text-white/40 hover:text-primary transition-colors text-sm">School's One - ERP</a><a href="/syllabus-content" class="block text-white/40 hover:text-primary transition-colors text-sm">Syllabus Learning Content</a><a href="/smart-panel" class="block text-white/40 hover:text-primary transition-colors text-sm">Interactive Smart Panel</a></div></div>
-          <h4 class="text-white font-display font-semibold text-sm mb-4">Legal</h4>
-          <div class="space-y-2.5">
-            <a href="/privacy-policy" class="block text-white/40 hover:text-primary transition-colors text-sm">Privacy Policy</a>
-            <a href="/terms-and-conditions" class="block text-white/40 hover:text-primary transition-colors text-sm">Terms & Conditions</a>
-            <a href="/account-deletion" class="block text-white/40 hover:text-primary transition-colors text-sm">Account Deletion</a>
-          </div>
-        </div>
-        <div><h4 class="text-white font-display font-semibold text-sm mb-4">Contact</h4><div class="space-y-3"><p class="text-white/40 text-sm flex items-center gap-2"><i class="fas fa-envelope text-primary/60 text-xs"></i> contactus@trivarta.in</p><p class="text-white/40 text-sm flex items-center gap-2"><i class="fas fa-phone text-primary/60 text-xs"></i> 9743136128 | 8660234312</p><a href="https://wa.me/918660234312" target="_blank" class="inline-flex items-center gap-2 text-[#25D366] hover:text-[#1DA851] transition-colors text-sm"><i class="fab fa-whatsapp"></i> WhatsApp Us</a></div></div>
-      <div class="border-t border-white/5 pt-6 text-center"><p class="text-white/25 text-xs">&copy; 2025 Trivarta Tech Pvt Ltd. All rights reserved.</p></div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Trivarta Tech. All rights reserved.</p>
+      <div style="display:flex;gap:20px"><a href="privacy-policy.html">Privacy</a><a href="terms-and-conditions.html">Terms</a></div>
     </div>
-  </footer>
-
-  <a href="https://wa.me/918660234312" target="_blank" class="whatsapp-float" data-testid="whatsapp-float-button" aria-label="Chat on WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
-
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="assets/js/main.js"></script>
+  </div>
+</footer>
 </body>
 </html>

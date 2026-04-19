@@ -1,1188 +1,375 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>School's One ERP — Complete School Management | Trivarta Tech</title>
-  <meta name="description" content="AI-powered school ERP with 22+ modules, real-time GPS tracking, and native mobile apps. Trusted by 50+ schools across India.">
-  <link rel="icon" type="image/png" href="assets/images/favicon.png">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <style>
-    /* ── Reset ── */
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; font-size: 16px; }
-    body {
-      font-family: 'Outfit', sans-serif;
-      background: #080808;
-      color: rgba(255,255,255,0.55);
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
-    a { text-decoration: none; color: inherit; }
-    img { max-width: 100%; display: block; }
-    ::selection { background: rgba(255,59,48,.3); color: #fff; }
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: #080808; }
-    ::-webkit-scrollbar-thumb { background: #222; border-radius: 4px; }
-
-    /* ── Tokens ── */
-    :root {
-      --red: #FF3B30;
-      --orange: #FF9500;
-      --bg: #080808;
-      --s1: rgba(255,255,255,0.04);
-      --s2: rgba(255,255,255,0.07);
-      --b1: rgba(255,255,255,0.07);
-      --b2: rgba(255,255,255,0.12);
-      --grad: linear-gradient(135deg,#FF3B30,#FF9500);
-      --wa: #25D366;
-      --r: 1rem;
-      --r2: 1.5rem;
-    }
-
-    /* ── Scroll progress ── */
-    .sp { position:fixed; top:0; left:0; height:2px; width:0%; background:var(--grad); z-index:200; transition:width .1s; }
-
-    /* ── Navbar ── */
-    nav {
-      position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
-      transition: background .4s, box-shadow .4s;
-    }
-    nav.scrolled {
-      background: rgba(8,8,8,.9);
-      backdrop-filter: blur(20px);
-      box-shadow: 0 1px 0 rgba(255,255,255,.06);
-    }
-    .nav-inner {
-      max-width: 1200px; margin: 0 auto;
-      padding: 0 1.5rem;
-      height: 72px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .nav-logo img { height: 44px; }
-    .nav-links { display: flex; align-items: center; gap: 2rem; }
-    .nav-links a {
-      font-size: .875rem; font-weight: 500; color: rgba(255,255,255,.6);
-      transition: color .25s; white-space: nowrap;
-    }
-    .nav-links a:hover, .nav-links a.active { color: #fff; }
-    .nav-links a.active { position: relative; }
-    .nav-links a.active::after {
-      content: ''; position: absolute; bottom: -4px; left: 0;
-      width: 100%; height: 2px; background: var(--grad); border-radius: 1px;
-    }
-    .nav-dd { position: relative; }
-    .nav-dd-menu {
-      position: absolute; top: calc(100% + 12px); left: 50%;
-      transform: translateX(-50%);
-      background: #111; border: 1px solid rgba(255,255,255,.08);
-      border-radius: var(--r); width: 220px;
-      opacity: 0; visibility: hidden; pointer-events: none;
-      transition: all .25s; box-shadow: 0 16px 40px rgba(0,0,0,.6);
-    }
-    .nav-dd:hover .nav-dd-menu { opacity: 1; visibility: visible; pointer-events: all; }
-    .nav-dd-menu a {
-      display: block; padding: .875rem 1.25rem;
-      font-size: .8rem; border-bottom: 1px solid rgba(255,255,255,.05);
-    }
-    .nav-dd-menu a:last-child { border: none; }
-    .nav-dd-menu a:hover { background: rgba(255,255,255,.04); color: #fff; }
-    .nav-chevron { font-size: .6rem; margin-left: .25rem; transition: transform .25s; }
-    .nav-dd:hover .nav-chevron { transform: rotate(180deg); }
-    .btn-nav {
-      background: var(--red); color: white;
-      padding: .5rem 1.25rem; border-radius: 9999px;
-      font-size: .825rem; font-weight: 600;
-      display: flex; align-items: center; gap: .4rem;
-      transition: all .3s;
-    }
-    .btn-nav:hover { background: #d32f2f; transform: translateY(-1px); box-shadow: 0 8px 20px rgba(255,59,48,.35); }
-
-    /* Mobile nav */
-    .hamburger {
-      display: none; flex-direction: column; gap: 5px;
-      background: none; border: none; cursor: pointer; padding: .5rem;
-    }
-    .hamburger span { display: block; width: 22px; height: 2px; background: white; border-radius: 2px; transition: all .3s; }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-    .mobile-nav {
-      display: none; background: rgba(8,8,8,.97);
-      backdrop-filter: blur(20px);
-      border-top: 1px solid rgba(255,255,255,.06);
-      padding: 1rem 1.5rem 2rem;
-    }
-    .mobile-nav.open { display: block; }
-    .mobile-nav a {
-      display: block; padding: .75rem .5rem;
-      font-size: .9rem; color: rgba(255,255,255,.65);
-      border-bottom: 1px solid rgba(255,255,255,.04);
-      transition: color .2s;
-    }
-    .mobile-nav a:hover { color: white; }
-    .mobile-nav .m-sub { padding-left: 1rem; }
-    .mobile-nav .m-sub a { font-size: .825rem; color: rgba(255,255,255,.5); }
-
-    /* ── Buttons ── */
-    .btn-primary {
-      display: inline-flex; align-items: center; gap: .5rem;
-      background: var(--red); color: white;
-      padding: .8rem 1.75rem; border-radius: 9999px;
-      font-size: .875rem; font-weight: 600; font-family: 'Outfit', sans-serif;
-      transition: all .3s; cursor: pointer; border: none; position: relative; overflow: hidden;
-    }
-    .btn-primary:hover { background: #d32f2f; transform: translateY(-2px); box-shadow: 0 12px 28px rgba(255,59,48,.4); }
-    .btn-primary:active { transform: scale(.97); }
-
-    .btn-wa {
-      display: inline-flex; align-items: center; gap: .5rem;
-      background: var(--wa); color: white;
-      padding: .8rem 1.75rem; border-radius: 9999px;
-      font-size: .875rem; font-weight: 600; font-family: 'Outfit', sans-serif;
-      transition: all .3s; cursor: pointer;
-    }
-    .btn-wa:hover { background: #1da851; transform: translateY(-2px); box-shadow: 0 12px 28px rgba(37,211,102,.4); }
-    .btn-wa:active { transform: scale(.97); }
-
-    .btn-ghost {
-      display: inline-flex; align-items: center; gap: .5rem;
-      border: 1px solid rgba(255,255,255,.15); color: white;
-      padding: .8rem 1.75rem; border-radius: 9999px;
-      font-size: .875rem; font-weight: 600; font-family: 'Outfit', sans-serif;
-      transition: all .3s; cursor: pointer;
-    }
-    .btn-ghost:hover { border-color: rgba(255,255,255,.35); background: rgba(255,255,255,.06); transform: translateY(-2px); }
-    .btn-ghost:active { transform: scale(.97); }
-
-    /* ── Section layout ── */
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
-    section { padding: 6rem 0; }
-    section + section { border-top: 1px solid rgba(255,255,255,.05); }
-
-    .tag {
-      display: inline-block;
-      font-size: .65rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
-      color: var(--red); font-family: 'Outfit', sans-serif; margin-bottom: .875rem;
-    }
-    .h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(1.6rem, 3vw, 2.25rem);
-      font-weight: 800; color: white; line-height: 1.2;
-      letter-spacing: -.025em; margin-bottom: 1rem;
-    }
-    .lead {
-      font-size: .9rem; color: rgba(255,255,255,.45); line-height: 1.8; max-width: 520px;
-    }
-    .sec-head { text-align: center; max-width: 580px; margin: 0 auto 3.5rem; }
-    .sec-head .lead { margin: 0 auto; }
-    .line { width: 40px; height: 3px; background: var(--grad); border-radius: 2px; margin-top: 1.25rem; }
-
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh;
-      display: flex; align-items: center;
-      padding: 7rem 0 4rem;
-      position: relative; overflow: hidden;
-    }
-    .hero-orb {
-      position: absolute; border-radius: 50%; filter: blur(80px);
-      pointer-events: none; will-change: transform;
-    }
-    .hero-orb-1 { width: 500px; height: 500px; background: rgba(255,59,48,.12); top: -150px; right: -100px; animation: orb 14s ease-in-out infinite; }
-    .hero-orb-2 { width: 380px; height: 380px; background: rgba(255,149,0,.08); bottom: -120px; left: -80px; animation: orb 18s ease-in-out infinite reverse; }
-    .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px); background-size: 56px 56px; pointer-events: none; }
-    .hero-inner {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 4rem; align-items: center; position: relative; z-index: 2;
-    }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: .5rem;
-      background: rgba(255,59,48,.08); border: 1px solid rgba(255,59,48,.18);
-      border-radius: 9999px; padding: .35rem 1rem;
-      font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-      color: rgba(255,255,255,.7); margin-bottom: 1.5rem;
-    }
-    .hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red); animation: pulse-dot 2s ease-in-out infinite; }
-    .hero-h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(2rem, 3.5vw, 3rem);
-      font-weight: 800; color: white; line-height: 1.12;
-      letter-spacing: -.03em; margin-bottom: 1.25rem;
-    }
-    .hero-h1 .gr { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .hero-sub { font-size: .925rem; color: rgba(255,255,255,.48); line-height: 1.8; max-width: 440px; margin-bottom: 2rem; }
-    .hero-stats { display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,.06); }
-    .hero-stat-n { font-family: 'Syne', sans-serif; font-size: 1.75rem; font-weight: 800; color: white; line-height: 1; margin-bottom: .2rem; }
-    .hero-stat-l { font-size: .65rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.35); }
-    .hero-pills { display: flex; gap: .6rem; flex-wrap: wrap; margin-bottom: 2rem; }
-    .hero-pill {
-      display: inline-flex; align-items: center; gap: .4rem;
-      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08);
-      border-radius: 9999px; padding: .35rem .85rem;
-      font-size: .72rem; font-weight: 600; color: rgba(255,255,255,.6);
-    }
-    .hero-pill i { color: var(--red); font-size: .65rem; }
-    .hero-actions { display: flex; gap: .875rem; flex-wrap: wrap; }
-
-    /* App Mockup */
-    .mockup-wrap { position: relative; }
-    .mockup {
-      background: #0f0f0f;
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 1.25rem;
-      overflow: hidden;
-      box-shadow: 0 32px 80px rgba(0,0,0,.6);
-    }
-    .mockup-bar {
-      display: flex; align-items: center; gap: .75rem;
-      padding: .75rem 1rem; background: rgba(255,255,255,.03);
-      border-bottom: 1px solid rgba(255,255,255,.06);
-    }
-    .mockup-dots { display: flex; gap: .4rem; }
-    .mockup-dots span { width: 10px; height: 10px; border-radius: 50%; }
-    .mockup-dots span:nth-child(1) { background: #ff5f57; }
-    .mockup-dots span:nth-child(2) { background: #febc2e; }
-    .mockup-dots span:nth-child(3) { background: #28c840; }
-    .mockup-url { flex: 1; background: rgba(255,255,255,.05); border-radius: 6px; padding: .3rem .75rem; font-size: .7rem; color: rgba(255,255,255,.35); font-family: monospace; }
-    .mockup-body { padding: 1.25rem; }
-    .dash-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: .6rem; margin-bottom: 1rem; }
-    .dash-stat {
-      background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07);
-      border-radius: .75rem; padding: .75rem;
-    }
-    .ds-label { font-size: .58rem; color: rgba(255,255,255,.35); text-transform: uppercase; letter-spacing: .08em; margin-bottom: .3rem; }
-    .ds-val { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; color: white; }
-    .ds-val.gr { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
-    .dash-panel { background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06); border-radius: .75rem; padding: .875rem; }
-    .dp-title { font-size: .65rem; font-weight: 700; color: rgba(255,255,255,.5); text-transform: uppercase; letter-spacing: .08em; margin-bottom: .75rem; }
-    .dp-row { display: flex; align-items: center; justify-content: space-between; padding: .35rem 0; border-bottom: 1px solid rgba(255,255,255,.04); }
-    .dp-row:last-child { border: none; }
-    .dp-row span:first-child { font-size: .7rem; color: rgba(255,255,255,.5); }
-    .dp-row span:last-child { font-size: .7rem; font-weight: 600; color: white; }
-    .dp-bar-wrap { height: 3px; background: rgba(255,255,255,.07); border-radius: 2px; margin-top: .5rem; }
-    .dp-bar { height: 3px; background: var(--grad); border-radius: 2px; }
-    .dp-chip { display: inline-flex; align-items: center; gap: .3rem; background: rgba(255,59,48,.1); border: 1px solid rgba(255,59,48,.15); border-radius: 9999px; padding: .2rem .6rem; font-size: .62rem; color: rgba(255,255,255,.6); margin: .2rem .1rem; }
-    .notif-item { display: flex; align-items: flex-start; gap: .6rem; padding: .5rem 0; border-bottom: 1px solid rgba(255,255,255,.04); }
-    .notif-item:last-child { border: none; }
-    .notif-icon { width: 28px; height: 28px; border-radius: 8px; background: rgba(255,59,48,.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .notif-icon i { font-size: .65rem; color: var(--red); }
-    .notif-text { font-size: .68rem; color: rgba(255,255,255,.5); line-height: 1.4; }
-    .notif-text strong { color: rgba(255,255,255,.8); display: block; margin-bottom: .15rem; font-size: .7rem; }
-    .gps-bar { display: flex; align-items: center; justify-content: space-between; background: rgba(37,211,102,.07); border: 1px solid rgba(37,211,102,.15); border-radius: .6rem; padding: .6rem .875rem; margin-top: .6rem; }
-    .gps-left { display: flex; align-items: center; gap: .5rem; }
-    .gps-dot { width: 8px; height: 8px; border-radius: 50%; background: #25D366; animation: pulse-dot 1.5s ease-in-out infinite; }
-    .gps-text { font-size: .7rem; color: rgba(255,255,255,.6); }
-    .gps-text strong { color: white; }
-    .gps-eta { font-size: .65rem; font-weight: 700; color: #25D366; }
-    .mockup-float {
-      position: absolute; bottom: -1rem; right: -1.5rem;
-      background: #111; border: 1px solid rgba(255,255,255,.1);
-      border-radius: 1rem; padding: 1rem 1.25rem; min-width: 160px;
-      box-shadow: 0 16px 40px rgba(0,0,0,.6);
-      animation: float-card 4s ease-in-out infinite;
-    }
-    .mf-label { font-size: .6rem; color: rgba(255,255,255,.35); text-transform: uppercase; letter-spacing: .1em; margin-bottom: .3rem; }
-    .mf-val { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; color: white; }
-    .mf-sub { font-size: .65rem; color: rgba(37,211,102,1); margin-top: .15rem; }
-
-    /* ── Marquee ── */
-    .marquee-section {
-      padding: 1rem 0;
-      background: rgba(255,255,255,.02);
-      border-top: 1px solid rgba(255,255,255,.05);
-      border-bottom: 1px solid rgba(255,255,255,.05);
-      overflow: hidden;
-    }
-    .marquee-track { display: flex; white-space: nowrap; }
-    .marquee-inner {
-      display: inline-flex; align-items: center; gap: 2rem;
-      animation: marquee 30s linear infinite; padding-right: 2rem; flex-shrink: 0;
-    }
-    .marquee-inner span { font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.25); }
-    .marquee-inner .dot { color: var(--red); }
-
-    /* ── Differentiators ── */
-    .diff-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
-    .diff-card {
-      background: var(--s1); border: 1px solid var(--b1);
-      border-radius: var(--r2); padding: 2rem;
-      transition: all .4s; position: relative; overflow: hidden;
-    }
-    .diff-card::after {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: var(--grad); transform: scaleX(0); transform-origin: left;
-      transition: transform .4s;
-    }
-    .diff-card:hover { border-color: rgba(255,59,48,.22); transform: translateY(-6px); box-shadow: 0 24px 48px rgba(0,0,0,.4); }
-    .diff-card:hover::after { transform: scaleX(1); }
-    .diff-icon { width: 52px; height: 52px; border-radius: 14px; background: linear-gradient(135deg,rgba(255,59,48,.14),rgba(255,149,0,.08)); display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; transition: transform .35s; }
-    .diff-card:hover .diff-icon { transform: scale(1.08) rotate(-5deg); }
-    .diff-icon i { color: var(--red); font-size: 1.25rem; }
-    .diff-h { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; color: white; margin-bottom: .625rem; }
-    .diff-p { font-size: .82rem; color: rgba(255,255,255,.42); line-height: 1.75; margin-bottom: 1rem; }
-    .diff-list { list-style: none; display: flex; flex-direction: column; gap: .4rem; }
-    .diff-list li { font-size: .78rem; color: rgba(255,255,255,.45); display: flex; align-items: flex-start; gap: .5rem; }
-    .diff-list li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--red); flex-shrink: 0; margin-top: .35rem; }
-
-    /* ── Roles ── */
-    .roles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 1rem; }
-    .role-card {
-      display: flex; flex-direction: column; align-items: center; gap: .625rem;
-      background: var(--s1); border: 1px solid var(--b1);
-      border-radius: var(--r); padding: 1.5rem .75rem;
-      text-align: center; transition: all .3s;
-    }
-    .role-card:hover { background: rgba(255,59,48,.05); border-color: rgba(255,59,48,.18); transform: translateY(-4px); }
-    .role-icon { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg,rgba(255,59,48,.12),rgba(255,149,0,.08)); display: flex; align-items: center; justify-content: center; }
-    .role-icon i { color: var(--red); font-size: 1rem; }
-    .role-name { font-family: 'Syne', sans-serif; font-size: .75rem; font-weight: 700; color: white; line-height: 1.3; }
-
-    /* ── Modules ── */
-    .mod-group { margin-bottom: 2.5rem; }
-    .mod-group-head {
-      display: flex; align-items: center; gap: .75rem;
-      margin-bottom: 1rem; padding-bottom: .75rem;
-      border-bottom: 1px solid rgba(255,255,255,.05);
-    }
-    .mod-group-icon { width: 32px; height: 32px; border-radius: 8px; background: rgba(255,59,48,.1); display: flex; align-items: center; justify-content: center; }
-    .mod-group-icon i { color: var(--red); font-size: .75rem; }
-    .mod-group-title { font-family: 'Syne', sans-serif; font-size: .75rem; font-weight: 700; color: rgba(255,255,255,.6); text-transform: uppercase; letter-spacing: .1em; }
-    .mod-chips { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: .625rem; }
-    .mod-chip {
-      display: flex; align-items: center; gap: .75rem;
-      background: var(--s1); border: 1px solid var(--b1);
-      border-radius: .875rem; padding: .8rem 1rem;
-      transition: all .3s;
-    }
-    .mod-chip:hover { background: rgba(255,59,48,.05); border-color: rgba(255,59,48,.18); transform: translateX(3px); }
-    .mod-chip-icon { width: 32px; height: 32px; border-radius: 8px; background: linear-gradient(135deg,rgba(255,59,48,.1),rgba(255,149,0,.07)); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .mod-chip-icon i { color: var(--red); font-size: .7rem; }
-    .mod-chip-name { font-size: .8rem; font-weight: 600; color: rgba(255,255,255,.8); }
-    .mod-chip-desc { font-size: .68rem; color: rgba(255,255,255,.32); margin-top: .1rem; }
-
-    /* ── Two-col feature ── */
-    .feat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-    .feat-grid.rev { direction: rtl; }
-    .feat-grid.rev > * { direction: ltr; }
-    .feat-list { list-style: none; display: flex; flex-direction: column; gap: .25rem; margin-top: 1.5rem; }
-    .feat-item {
-      display: flex; gap: .875rem; align-items: flex-start;
-      padding: 1rem; border-radius: var(--r); border: 1px solid transparent;
-      transition: all .3s;
-    }
-    .feat-item:hover { background: rgba(255,255,255,.03); border-color: rgba(255,255,255,.06); }
-    .feat-item-icon { width: 36px; height: 36px; border-radius: 9px; background: linear-gradient(135deg,rgba(255,59,48,.12),rgba(255,149,0,.07)); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: transform .3s; }
-    .feat-item:hover .feat-item-icon { transform: scale(1.1) rotate(-5deg); }
-    .feat-item-icon i { color: var(--red); font-size: .75rem; }
-    .feat-item-title { font-size: .875rem; font-weight: 600; color: white; margin-bottom: .2rem; }
-    .feat-item-desc { font-size: .78rem; color: rgba(255,255,255,.38); line-height: 1.65; }
-    .feat-cta { margin-top: 2rem; }
-
-    /* AI mockup card */
-    .ai-card {
-      background: #0d0d0d; border: 1px solid rgba(255,255,255,.08);
-      border-radius: var(--r2); overflow: hidden;
-      box-shadow: 0 24px 60px rgba(0,0,0,.5);
-    }
-    .ai-card-head { padding: 1rem 1.25rem; background: rgba(255,255,255,.03); border-bottom: 1px solid rgba(255,255,255,.05); display: flex; align-items: center; gap: .75rem; }
-    .ai-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg,var(--red),var(--orange)); display: flex; align-items: center; justify-content: center; }
-    .ai-avatar i { color: white; font-size: .875rem; }
-    .ai-name { font-size: .875rem; font-weight: 600; color: white; }
-    .ai-status { font-size: .65rem; color: #25D366; }
-    .ai-online { display: flex; align-items: center; gap: .35rem; }
-    .ai-dot-g { width: 6px; height: 6px; border-radius: 50%; background: #25D366; animation: pulse-dot 1.5s ease-in-out infinite; }
-    .ai-messages { padding: 1.25rem; display: flex; flex-direction: column; gap: .875rem; }
-    .ai-msg-user {
-      align-self: flex-start; background: rgba(255,255,255,.06);
-      border-radius: 1rem 1rem 1rem .25rem; padding: .75rem 1rem;
-      max-width: 80%; font-size: .78rem; color: rgba(255,255,255,.7); line-height: 1.5;
-    }
-    .ai-msg-bot {
-      align-self: flex-end; background: rgba(255,59,48,.09); border: 1px solid rgba(255,59,48,.14);
-      border-radius: 1rem 1rem .25rem 1rem; padding: .75rem 1rem;
-      max-width: 85%; font-size: .78rem; color: rgba(255,255,255,.75); line-height: 1.6;
-    }
-    .ai-msg-bot strong { color: white; }
-    .ai-msg-meta { font-size: .62rem; color: rgba(255,255,255,.3); margin-top: .4rem; text-align: right; }
-    .ai-input { margin: 0 1.25rem 1.25rem; display: flex; gap: .5rem; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); border-radius: 9999px; padding: .5rem .5rem .5rem 1rem; align-items: center; }
-    .ai-input span { flex: 1; font-size: .75rem; color: rgba(255,255,255,.25); }
-    .ai-send { width: 28px; height: 28px; border-radius: 50%; background: var(--red); display: flex; align-items: center; justify-content: center; }
-    .ai-send i { color: white; font-size: .6rem; }
-
-    /* GPS mockup */
-    .gps-card {
-      background: #0d0d0d; border: 1px solid rgba(255,255,255,.08);
-      border-radius: var(--r2); overflow: hidden;
-      box-shadow: 0 24px 60px rgba(0,0,0,.5);
-    }
-    .gps-map {
-      height: 200px; background: #0d1117; position: relative; overflow: hidden;
-    }
-    .gps-map-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px); background-size: 30px 30px; }
-    .gps-map svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-    .gps-live-badge { position: absolute; top: .75rem; right: .75rem; background: rgba(8,8,8,.8); border: 1px solid rgba(37,211,102,.2); border-radius: 9999px; padding: .25rem .75rem; display: flex; align-items: center; gap: .35rem; font-size: .65rem; color: #25D366; font-weight: 600; }
-    .gps-body { padding: 1.25rem; }
-    .gps-vehicles { display: flex; flex-direction: column; gap: .625rem; margin-bottom: 1rem; }
-    .gps-veh { display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.05); border-radius: .75rem; padding: .75rem 1rem; }
-    .gps-veh-l { display: flex; align-items: center; gap: .625rem; }
-    .gps-veh-l i { color: var(--red); font-size: .875rem; }
-    .gps-veh-name { font-size: .78rem; font-weight: 600; color: rgba(255,255,255,.8); }
-    .gps-veh-stop { font-size: .65rem; color: rgba(255,255,255,.35); }
-    .gps-status { font-size: .68rem; font-weight: 700; }
-    .s-green { color: #25D366; }
-    .s-orange { color: var(--orange); }
-    .gps-notif { background: rgba(37,211,102,.07); border: 1px solid rgba(37,211,102,.15); border-radius: .875rem; padding: .875rem 1rem; display: flex; align-items: flex-start; gap: .75rem; }
-    .gps-notif i { color: #25D366; font-size: .875rem; margin-top: .1rem; }
-    .gps-notif-title { font-size: .78rem; font-weight: 600; color: white; margin-bottom: .2rem; }
-    .gps-notif-text { font-size: .7rem; color: rgba(255,255,255,.45); }
-    .gps-notif-text strong { color: white; }
-
-    /* ── Tech stack ── */
-    .tech-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: .75rem; }
-    .tech-pill {
-      display: flex; align-items: center; gap: .625rem;
-      background: var(--s1); border: 1px solid var(--b1);
-      border-radius: .875rem; padding: .75rem 1rem;
-      transition: all .3s; cursor: default;
-    }
-    .tech-pill:hover { border-color: rgba(255,59,48,.18); background: rgba(255,59,48,.04); }
-    .tech-pill i { color: var(--red); font-size: .8rem; }
-    .tech-pill span { font-size: .8rem; font-weight: 500; color: rgba(255,255,255,.6); }
-
-    /* ── Timeline ── */
-    .timeline { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; position: relative; }
-    .timeline::before { content: ''; position: absolute; top: 2.5rem; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg,rgba(255,59,48,.3),rgba(255,149,0,.3)); pointer-events: none; }
-    .tl-card {
-      background: var(--s1); border: 1px solid var(--b1);
-      border-radius: var(--r2); padding: 1.75rem;
-      position: relative; transition: all .35s;
-    }
-    .tl-card:hover { border-color: rgba(255,59,48,.2); transform: translateY(-4px); }
-    .tl-num {
-      font-family: 'Syne', sans-serif; font-size: 3.5rem; font-weight: 800;
-      position: absolute; top: .5rem; right: 1rem; line-height: 1;
-      background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      opacity: .18;
-    }
-    .tl-weeks { font-size: .65rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--red); margin-bottom: .75rem; }
-    .tl-title { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; color: white; margin-bottom: .625rem; }
-    .tl-desc { font-size: .78rem; color: rgba(255,255,255,.38); line-height: 1.7; }
-
-    /* ── CTA ── */
-    .cta-block {
-      background: linear-gradient(135deg,rgba(255,59,48,.07),rgba(255,149,0,.04));
-      border: 1px solid rgba(255,59,48,.13);
-      border-radius: 2rem; padding: 5rem 3rem;
-      text-align: center; position: relative; overflow: hidden;
-    }
-    .cta-orb { position: absolute; border-radius: 50%; filter: blur(70px); pointer-events: none; }
-    .cta-orb-1 { width: 300px; height: 300px; background: rgba(255,59,48,.1); top: -150px; right: -80px; animation: orb 9s ease-in-out infinite; }
-    .cta-orb-2 { width: 220px; height: 220px; background: rgba(255,149,0,.07); bottom: -100px; left: -60px; animation: orb 12s ease-in-out infinite reverse; }
-    .cta-h { font-family: 'Syne', sans-serif; font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 800; color: white; letter-spacing: -.025em; line-height: 1.2; margin: .875rem 0 1rem; }
-    .cta-p { font-size: .9rem; color: rgba(255,255,255,.42); max-width: 500px; margin: 0 auto 2.5rem; line-height: 1.8; }
-    .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-
-    /* ── Footer ── */
-    footer { background: #050505; border-top: 1px solid rgba(255,255,255,.05); padding: 4rem 0 2rem; }
-    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1.2fr; gap: 3rem; margin-bottom: 3rem; }
-    .footer-logo { height: 44px; margin-bottom: 1rem; }
-    .footer-about { font-size: .8rem; color: rgba(255,255,255,.3); line-height: 1.75; max-width: 200px; }
-    .footer-h { font-family: 'Syne', sans-serif; font-size: .68rem; font-weight: 700; color: rgba(255,255,255,.8); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 1.25rem; }
-    .footer-links { display: flex; flex-direction: column; gap: .75rem; }
-    .footer-links a { font-size: .8rem; color: rgba(255,255,255,.3); transition: color .25s; }
-    .footer-links a:hover { color: var(--red); }
-    .footer-contact-item { display: flex; align-items: center; gap: .5rem; font-size: .78rem; color: rgba(255,255,255,.3); margin-bottom: .75rem; }
-    .footer-contact-item i { color: rgba(255,59,48,.6); font-size: .7rem; }
-    .footer-wa { display: inline-flex; align-items: center; gap: .4rem; font-size: .8rem; color: var(--wa); transition: color .25s; }
-    .footer-wa:hover { color: #1da851; }
-    .footer-bottom { border-top: 1px solid rgba(255,255,255,.05); padding-top: 1.5rem; text-align: center; font-size: .7rem; color: rgba(255,255,255,.18); }
-
-    /* ── WhatsApp float ── */
-    .wa-float {
-      position: fixed; bottom: 1.75rem; right: 1.75rem;
-      width: 52px; height: 52px; border-radius: 50%;
-      background: var(--wa); color: white;
-      display: flex; align-items: center; justify-content: center;
-      z-index: 90; box-shadow: 0 4px 20px rgba(37,211,102,.4);
-      transition: all .3s; animation: wa-pulse 2.5s infinite;
-    }
-    .wa-float:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(37,211,102,.55); }
-    .wa-float::before {
-      content: 'Chat with us'; position: absolute; right: 110%; top: 50%; transform: translateY(-50%);
-      background: #1a1a1a; color: white; font-size: .7rem; font-weight: 500;
-      padding: .3rem .7rem; border-radius: 6px; white-space: nowrap;
-      opacity: 0; transition: opacity .3s; border: 1px solid #333; pointer-events: none;
-    }
-    .wa-float:hover::before { opacity: 1; }
-
-    /* ── Back to top ── */
-    .btt {
-      position: fixed; bottom: 1.75rem; left: 1.75rem;
-      width: 44px; height: 44px; border-radius: 50%;
-      background: #111; border: 1px solid rgba(255,255,255,.1);
-      color: white; display: flex; align-items: center; justify-content: center;
-      z-index: 90; opacity: 0; visibility: hidden; transform: translateY(12px);
-      transition: all .35s; cursor: pointer;
-    }
-    .btt.show { opacity: 1; visibility: visible; transform: translateY(0); }
-    .btt:hover { background: var(--red); border-color: var(--red); transform: translateY(-2px); }
-
-    /* ── Animations ── */
-    @keyframes orb { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(24px,-24px) scale(1.04)} 66%{transform:translate(-12px,16px) scale(.97)} }
-    @keyframes float-card { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-    @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
-    @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.75)} }
-    @keyframes wa-pulse { 0%{box-shadow:0 0 0 0 rgba(37,211,102,.45)} 70%{box-shadow:0 0 0 16px rgba(37,211,102,0)} 100%{box-shadow:0 0 0 0 rgba(37,211,102,0)} }
-    @keyframes page-in { from{opacity:0} to{opacity:1} }
-    body { animation: page-in .4s ease-out; }
-
-    /* ── Reveal ── */
-    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s cubic-bezier(.4,0,.2,1), transform .7s cubic-bezier(.4,0,.2,1); }
-    .reveal.in { opacity: 1; transform: translateY(0); }
-    .reveal-l { opacity: 0; transform: translateX(-28px); transition: opacity .7s cubic-bezier(.4,0,.2,1), transform .7s cubic-bezier(.4,0,.2,1); }
-    .reveal-l.in { opacity: 1; transform: translateX(0); }
-    .reveal-r { opacity: 0; transform: translateX(28px); transition: opacity .7s cubic-bezier(.4,0,.2,1), transform .7s cubic-bezier(.4,0,.2,1); }
-    .reveal-r.in { opacity: 1; transform: translateX(0); }
-
-    /* ── Responsive ── */
-    @media (max-width: 1024px) {
-      .diff-grid { grid-template-columns: 1fr; }
-      .feat-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .feat-grid.rev { direction: ltr; }
-      .timeline { grid-template-columns: 1fr 1fr; }
-      .timeline::before { display: none; }
-      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
-      .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
-      .mockup-wrap { max-width: 520px; margin: 0 auto; }
-    }
-    @media (max-width: 768px) {
-      section { padding: 4rem 0; }
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
-      .diff-grid { grid-template-columns: 1fr; }
-      .roles-grid { grid-template-columns: repeat(3,1fr); }
-      .timeline { grid-template-columns: 1fr; }
-      .dash-stats { grid-template-columns: repeat(2,1fr); }
-      .cta-block { padding: 3rem 1.5rem; border-radius: 1.5rem; }
-      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
-    }
-    @media (max-width: 480px) {
-      .container { padding: 0 1rem; }
-      .hero { padding: 6rem 0 3rem; }
-      .hero-stats { gap: 1.25rem; }
-      .hero-actions { flex-direction: column; }
-      .hero-actions .btn-wa, .hero-actions .btn-ghost { width: 100%; justify-content: center; }
-      .roles-grid { grid-template-columns: repeat(2,1fr); }
-      .mod-chips { grid-template-columns: 1fr; }
-      .cta-actions { flex-direction: column; align-items: center; }
-      .cta-actions .btn-wa, .cta-actions .btn-ghost { width: 100%; justify-content: center; }
-      .wa-float::before { display: none; }
-      .wa-float { bottom: 1rem; right: 1rem; width: 46px; height: 46px; }
-      .btt { bottom: 1rem; left: 1rem; width: 40px; height: 40px; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
-    }
-    @media (hover: none) {
-      .diff-card:hover, .role-card:hover, .mod-chip:hover, .tl-card:hover { transform: none; }
-      .diff-card:active { transform: scale(.98); }
-    }
-  </style>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>School ERP — Trivarta Tech</title>
+  <meta name="description" content="India's most comprehensive School ERP with 22+ modules, GPS tracking, AI grading, and apps for every stakeholder."/>
+  <link rel="icon" href="assets/images/favicon.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <link rel="stylesheet" href="assets/css/style.css"/>
+  <script src="assets/js/main.js" defer></script>
 </head>
 <body>
 
-  <!-- Scroll Progress -->
-  <div class="sp" id="sp"></div>
-
-  <!-- NAVBAR -->
-  <nav id="navbar">
-    <div class="nav-inner">
-      <a href="/" class="nav-logo"><img src="assets/images/logo.png" alt="Trivarta Tech"></a>
-      <div class="nav-links">
-        <a href="/">Home</a>
-        <a href="/about.html">About</a>
-        <div class="nav-dd">
-          <a href="/products.html" class="active">Products <i class="fas fa-chevron-down nav-chevron"></i></a>
-          <div class="nav-dd-menu">
-            <a href="/school-erp.html" style="color:white;background:rgba(255,255,255,.04)"><i class="fas fa-building-columns" style="color:var(--red);margin-right:.5rem;font-size:.75rem"></i>School's One - ERP</a>
-            <a href="/syllabus-content.html"><i class="fas fa-book-open" style="color:rgba(255,59,48,.7);margin-right:.5rem;font-size:.75rem"></i>Syllabus Content</a>
-          </div>
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><img src="assets/images/logo.png" alt="Trivarta Tech"/></a>
+    <div class="nav-links">
+      <a href="/" class="nav-link">Home</a>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-toggle">Products <i class="fas fa-chevron-down"></i></div>
+        <div class="nav-dropdown-menu">
+          <a href="school-erp.html" class="nav-dropdown-item"><i class="fas fa-graduation-cap"></i>School ERP</a>
+          <a href="smart-panel.html" class="nav-dropdown-item"><i class="fas fa-solar-panel"></i>Smart Panel</a>
+          <a href="syllabus-content.html" class="nav-dropdown-item"><i class="fas fa-book-open"></i>Syllabus Content</a>
         </div>
-        <div class="nav-dd">
-          <a href="/services.html">Services <i class="fas fa-chevron-down nav-chevron"></i></a>
-          <div class="nav-dd-menu">
-            <a href="/website-development.html"><i class="fas fa-globe" style="color:rgba(255,59,48,.7);margin-right:.5rem;font-size:.75rem"></i>Website Development</a>
-            <a href="/web-application.html"><i class="fas fa-laptop-code" style="color:rgba(255,59,48,.7);margin-right:.5rem;font-size:.75rem"></i>Web Application</a>
-            <a href="/mobile-application.html"><i class="fas fa-mobile-screen" style="color:rgba(255,59,48,.7);margin-right:.5rem;font-size:.75rem"></i>Mobile App</a>
-          </div>
-        </div>
-        <a href="/smart-panel.html">Smart Panel</a>
-        <a href="/contact.html">Contact</a>
-        <a href="assets/brochure/Trivarta-Tech-brochure.pdf" download class="btn-nav"><i class="fas fa-download"></i> Brochure</a>
       </div>
-      <button class="hamburger" id="ham" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-toggle">Services <i class="fas fa-chevron-down"></i></div>
+        <div class="nav-dropdown-menu">
+          <a href="web-application.html" class="nav-dropdown-item"><i class="fas fa-globe"></i>Web Application</a>
+          <a href="mobile-application.html" class="nav-dropdown-item"><i class="fas fa-mobile-alt"></i>Mobile Application</a>
+          <a href="website-development.html" class="nav-dropdown-item"><i class="fas fa-code"></i>Website Development</a>
+        </div>
+      </div>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contact.html" class="nav-link">Contact</a>
     </div>
-    <div class="mobile-nav" id="mobile-nav">
-      <a href="/">Home</a>
-      <a href="/about.html">About</a>
-      <a href="/products.html" style="color:white">Products</a>
-      <div class="m-sub">
-        <a href="/school-erp.html" style="color:var(--red)">School's One - ERP</a>
-        <a href="/syllabus-content.html">Syllabus Content</a>
-      </div>
-      <a href="/services.html">Services</a>
-      <div class="m-sub">
-        <a href="/website-development.html">Website Development</a>
-        <a href="/web-application.html">Web Application</a>
-        <a href="/mobile-application.html">Mobile App</a>
-      </div>
-      <a href="/smart-panel.html">Smart Panel</a>
-      <a href="/contact.html">Contact</a>
-      <div style="padding:.75rem .5rem 0">
-        <a href="assets/brochure/Trivarta-Tech-brochure.pdf" download class="btn-nav" style="display:inline-flex"><i class="fas fa-download"></i> Brochure</a>
-      </div>
-    </div>
-  </nav>
+    <div class="nav-cta"><a href="contact.html" class="btn btn-primary btn-sm magnetic">Get Demo</a></div>
+    <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu">
+  <a href="/" class="mobile-nav-link"><i class="fas fa-home"></i>Home</a>
+  <div class="mobile-nav-section">Products</div>
+  <a href="school-erp.html" class="mobile-nav-link"><i class="fas fa-graduation-cap"></i>School ERP</a>
+  <a href="smart-panel.html" class="mobile-nav-link"><i class="fas fa-solar-panel"></i>Smart Panel</a>
+  <a href="syllabus-content.html" class="mobile-nav-link"><i class="fas fa-book-open"></i>Syllabus Content</a>
+  <div class="mobile-nav-section">Services</div>
+  <a href="web-application.html" class="mobile-nav-link"><i class="fas fa-globe"></i>Web Application</a>
+  <a href="mobile-application.html" class="mobile-nav-link"><i class="fas fa-mobile-alt"></i>Mobile Application</a>
+  <a href="website-development.html" class="mobile-nav-link"><i class="fas fa-code"></i>Website Development</a>
+  <div class="mobile-divider"></div>
+  <a href="about.html" class="mobile-nav-link"><i class="fas fa-info-circle"></i>About</a>
+  <a href="contact.html" class="mobile-nav-link"><i class="fas fa-envelope"></i>Contact</a>
+  <div class="mobile-divider"></div>
+  <a href="contact.html" class="btn btn-primary" style="margin-top:8px">Get Demo <i class="fas fa-arrow-right"></i></a>
+</div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-orb hero-orb-1"></div>
-    <div class="hero-orb hero-orb-2"></div>
-    <div class="hero-grid"></div>
-    <div class="container" style="position:relative;z-index:2;width:100%">
-      <div class="hero-inner">
-        <!-- Left -->
-        <div>
-          <div class="hero-badge reveal"><span class="hero-badge-dot"></span> School ERP Platform</div>
-          <h1 class="hero-h1 reveal">Complete School<br>Management,<br><span class="gr">Simplified.</span></h1>
-          <p class="hero-sub reveal">An AI-powered, cloud-ready platform that digitizes every operation — from attendance and fees to GPS transport tracking and parent communication.</p>
-          <div class="hero-pills reveal">
-            <span class="hero-pill"><i class="fas fa-robot"></i> AI-Powered</span>
-            <span class="hero-pill"><i class="fas fa-location-dot"></i> Real-Time GPS</span>
-            <span class="hero-pill"><i class="fas fa-mobile-screen"></i> Native Mobile App</span>
-            <span class="hero-pill"><i class="fas fa-layer-group"></i> 22+ Modules</span>
-          </div>
-          <div class="hero-stats reveal">
-            <div><div class="hero-stat-n">22+</div><div class="hero-stat-l">Modules</div></div>
-            <div><div class="hero-stat-n">9+</div><div class="hero-stat-l">User Roles</div></div>
-            <div><div class="hero-stat-n">50+</div><div class="hero-stat-l">Schools</div></div>
-            <div><div class="hero-stat-n">80%</div><div class="hero-stat-l">Less Admin Work</div></div>
-          </div>
-          <div class="hero-actions reveal">
-            <a href="https://wa.me/918660234312" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Get a Free Demo</a>
-            <a href="assets/brochure/Trivarta-Tech-brochure.pdf" download class="btn-ghost"><i class="fas fa-download"></i> Brochure</a>
-          </div>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <div class="breadcrumb hero-label" style="display:flex">
+          <a href="/">Home</a><i class="fas fa-chevron-right"></i>
+          <a href="products.html">Products</a><i class="fas fa-chevron-right"></i>
+          <span style="color:#fff">School ERP</span>
         </div>
-        <!-- Right: App Mockup -->
-        <div class="mockup-wrap reveal-r">
-          <div class="mockup">
-            <div class="mockup-bar">
-              <div class="mockup-dots"><span></span><span></span><span></span></div>
-              <div class="mockup-url">schools-one.trivarta.in</div>
-            </div>
-            <div class="mockup-body">
-              <div class="dash-stats">
-                <div class="dash-stat"><div class="ds-label">Students</div><div class="ds-val">1,284</div></div>
-                <div class="dash-stat"><div class="ds-label">Staff</div><div class="ds-val">86</div></div>
-                <div class="dash-stat"><div class="ds-label">Attendance</div><div class="ds-val gr">94.2%</div></div>
-                <div class="dash-stat"><div class="ds-label">Fee Collected</div><div class="ds-val gr">₹18.4L</div></div>
-              </div>
-              <div class="dash-grid">
-                <div class="dash-panel">
-                  <div class="dp-title">Recent Activity</div>
-                  <div class="notif-item">
-                    <div class="notif-icon"><i class="fas fa-clipboard-check"></i></div>
-                    <div class="notif-text"><strong>Attendance Marked</strong>Grade 10-A · 38/40 present</div>
-                  </div>
-                  <div class="notif-item">
-                    <div class="notif-icon"><i class="fas fa-indian-rupee-sign"></i></div>
-                    <div class="notif-text"><strong>Fee Payment</strong>Aarav S. · ₹12,500 received</div>
-                  </div>
-                  <div class="notif-item">
-                    <div class="notif-icon"><i class="fas fa-file-pen"></i></div>
-                    <div class="notif-text"><strong>Exam Result</strong>Mid-term results published</div>
-                  </div>
-                  <div class="gps-bar">
-                    <div class="gps-left">
-                      <div class="gps-dot"></div>
-                      <div class="gps-text"><strong>Bus 1</strong> is on route</div>
-                    </div>
-                    <div class="gps-eta">ETA 4 min</div>
-                  </div>
-                </div>
-                <div class="dash-panel">
-                  <div class="dp-title">Module Access</div>
-                  <div style="display:flex;flex-wrap:wrap">
-                    <div class="dp-chip"><i class="fas fa-graduation-cap" style="color:var(--red);font-size:.6rem"></i> Academic</div>
-                    <div class="dp-chip"><i class="fas fa-calendar" style="color:var(--red);font-size:.6rem"></i> Attendance</div>
-                    <div class="dp-chip"><i class="fas fa-rupee-sign" style="color:var(--red);font-size:.6rem"></i> Fees</div>
-                    <div class="dp-chip"><i class="fas fa-bus" style="color:var(--red);font-size:.6rem"></i> Transport</div>
-                    <div class="dp-chip"><i class="fas fa-bed" style="color:var(--red);font-size:.6rem"></i> Hostel</div>
-                    <div class="dp-chip"><i class="fas fa-comment" style="color:var(--red);font-size:.6rem"></i> Chat</div>
-                    <div class="dp-chip"><i class="fas fa-chart-bar" style="color:var(--red);font-size:.6rem"></i> Analytics</div>
-                    <div class="dp-chip">+15 more</div>
-                  </div>
-                  <div class="dp-bar-wrap" style="margin-top:.875rem"><div class="dp-bar" style="width:78%"></div></div>
-                  <div style="display:flex;justify-content:space-between;margin-top:.3rem">
-                    <span style="font-size:.62rem;color:rgba(255,255,255,.3)">System health</span>
-                    <span style="font-size:.62rem;color:white;font-weight:600">98.7%</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="mockup-float">
-            <div class="mf-label">Schools Powered</div>
-            <div class="mf-val">50+</div>
-            <div class="mf-sub"><i class="fas fa-arrow-up" style="font-size:.6rem"></i> Growing every month</div>
-          </div>
+        <h1 class="hero-title">
+          <span class="hero-word">Complete</span>
+          <span class="hero-word gradient-text"> School</span><br>
+          <span class="hero-word">Management</span>
+          <span class="hero-word"> System</span>
+        </h1>
+        <p class="hero-sub">22+ modules, 9 user roles, real-time GPS tracking, AI-powered grading, Razorpay fee collection — all in one platform. Built for schools of every size.</p>
+        <div class="hero-actions">
+          <a href="contact.html" class="btn btn-primary btn-lg magnetic">Book Free Demo <i class="fas fa-arrow-right"></i></a>
+          <a href="https://wa.me/919999999999" class="btn-wa btn-lg" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i>WhatsApp Us</a>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- MARQUEE -->
-  <div class="marquee-section">
-    <div class="marquee-track">
-      <div class="marquee-inner">
-        <span>AI Chatbot</span><span class="dot">·</span><span>GPS Tracking</span><span class="dot">·</span><span>Fee Management</span><span class="dot">·</span><span>Attendance</span><span class="dot">·</span><span>Report Cards</span><span class="dot">·</span><span>Hostel Module</span><span class="dot">·</span><span>Payroll</span><span class="dot">·</span><span>Parent Portal</span><span class="dot">·</span><span>Mobile App</span><span class="dot">·</span><span>QR Attendance</span><span class="dot">·</span><span>Analytics</span><span class="dot">·</span><span>Digital Diary</span><span class="dot">·</span>
-      </div>
-      <div class="marquee-inner" aria-hidden="true">
-        <span>AI Chatbot</span><span class="dot">·</span><span>GPS Tracking</span><span class="dot">·</span><span>Fee Management</span><span class="dot">·</span><span>Attendance</span><span class="dot">·</span><span>Report Cards</span><span class="dot">·</span><span>Hostel Module</span><span class="dot">·</span><span>Payroll</span><span class="dot">·</span><span>Parent Portal</span><span class="dot">·</span><span>Mobile App</span><span class="dot">·</span><span>QR Attendance</span><span class="dot">·</span><span>Analytics</span><span class="dot">·</span><span>Digital Diary</span><span class="dot">·</span>
+      <div class="hero-visual">
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="hero-stat-num gradient-text" data-counter="22" data-suffix="+">0+</div>
+            <div class="hero-stat-label">Modules</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num gradient-text" data-counter="9">0</div>
+            <div class="hero-stat-label">User Roles</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num gradient-text" data-counter="150" data-suffix="+">0+</div>
+            <div class="hero-stat-label">Schools Live</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num gradient-text" data-counter="50000" data-suffix="+">0+</div>
+            <div class="hero-stat-label">Students</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- THREE PILLARS -->
-  <section>
-    <div class="container">
-      <div class="sec-head reveal">
-        <div class="tag">What Sets Us Apart</div>
-        <h2 class="h2">Three Pillars That Make<br>School's One Different</h2>
-        <p class="lead">Most ERPs just store records. Ours intelligently runs your school.</p>
-      </div>
-      <div class="diff-grid">
-        <div class="diff-card reveal">
-          <div class="diff-icon"><i class="fas fa-robot"></i></div>
-          <div class="diff-h">AI-Powered Intelligence</div>
-          <p class="diff-p">24/7 AI chatbot, automated report card comments, predictive analytics — saving your staff up to 80% of repetitive work.</p>
-          <ul class="diff-list">
-            <li>Instant query resolution for all stakeholders</li>
-            <li>Auto-generated personalized report card comments</li>
-            <li>Chronic absenteeism & fee defaulter detection</li>
-            <li>Timetable optimization & budget forecasting</li>
-          </ul>
-        </div>
-        <div class="diff-card reveal">
-          <div class="diff-icon"><i class="fas fa-location-dot"></i></div>
-          <div class="diff-h">Real-Time GPS Tracking</div>
-          <p class="diff-p">Live vehicle tracking with interactive maps. Parents know exactly where their child's bus is — with stop-by-stop ETA updates.</p>
-          <ul class="diff-list">
-            <li>Live bus map on parent mobile app</li>
-            <li>Auto pickup & drop-off notifications</li>
-            <li>Speed alerts & route deviation detection</li>
-            <li>No extra hardware — works via driver's phone</li>
-          </ul>
-        </div>
-        <div class="diff-card reveal">
-          <div class="diff-icon"><i class="fas fa-mobile-screen"></i></div>
-          <div class="diff-h">Native Mobile Application</div>
-          <p class="diff-p">Full-featured native Android & iOS apps for every user — with biometric auth, offline mode, and push notifications.</p>
-          <ul class="diff-list">
-            <li>QR-code attendance marking for teachers</li>
-            <li>Fee payment via Razorpay in-app</li>
-            <li>Assignment submission with file attachments</li>
-            <li>Offline mode with automatic sync</li>
-          </ul>
-        </div>
-      </div>
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-fade marquee-fade-left"></div>
+  <div class="marquee-fade marquee-fade-right"></div>
+  <div class="marquee-track">
+    <span class="marquee-item"><i class="fas fa-check-circle"></i>Attendance Management</span>
+    <span class="marquee-item"><i class="fas fa-check-circle"></i>Fee Collection</span>
+    <span class="marquee-item"><i class="fas fa-check-circle"></i>GPS Bus Tracking</span>
+    <span class="marquee-item"><i class="fas fa-check-circle"></i>AI Grading</span>
+    <span class="marquee-item"><i class="fas fa-check-circle"></i>Timetable</span>
+    <span class="marquee-item"><i class="fas fa-check-circle"></i>Parent App</span>
+    <span class="marquee-item"><i class="fas fa-check-circle"></i>Payroll</span>
+    <span class="marquee-item"><i class="fas fa-check-circle"></i>Library</span>
+    <span class="marquee-item"><i class="fas fa-check-circle"></i>Hostel</span>
+    <span class="marquee-item"><i class="fas fa-check-circle"></i>Razorpay Integration</span>
+    <span class="marquee-item"><i class="fas fa-check-circle"></i>Attendance Management</span>
+    <span class="marquee-item"><i class="fas fa-check-circle"></i>Fee Collection</span>
+    <span class="marquee-item"><i class="fas fa-check-circle"></i>GPS Bus Tracking</span>
+    <span class="marquee-item"><i class="fas fa-check-circle"></i>AI Grading</span>
+    <span class="marquee-item"><i class="fas fa-check-circle"></i>Timetable</span>
+    <span class="marquee-item"><i class="fas fa-check-circle"></i>Parent App</span>
+    <span class="marquee-item"><i class="fas fa-check-circle"></i>Payroll</span>
+    <span class="marquee-item"><i class="fas fa-check-circle"></i>Library</span>
+    <span class="marquee-item"><i class="fas fa-check-circle"></i>Hostel</span>
+    <span class="marquee-item"><i class="fas fa-check-circle"></i>Razorpay Integration</span>
+  </div>
+</div>
+
+<!-- USER ROLES -->
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-tag"><i class="fas fa-users"></i> Who It's For</div>
+      <h2>9 Roles, One Platform</h2>
+      <p>Every stakeholder gets their own dedicated interface — designed for their specific workflows.</p>
+      <div class="divider"></div>
     </div>
-  </section>
-
-  <!-- USER ROLES -->
-  <section>
-    <div class="container">
-      <div class="sec-head reveal">
-        <div class="tag">Built for Everyone</div>
-        <h2 class="h2">9+ Roles, One Platform</h2>
-        <p class="lead">Each user gets a tailored experience with granular, module-level permissions they actually need.</p>
-      </div>
-      <div class="roles-grid reveal">
-        <div class="role-card"><div class="role-icon"><i class="fas fa-user-shield"></i></div><div class="role-name">Super Admin</div></div>
-        <div class="role-card"><div class="role-icon"><i class="fas fa-user-tie"></i></div><div class="role-name">School Admin</div></div>
-        <div class="role-card"><div class="role-icon"><i class="fas fa-chalkboard-user"></i></div><div class="role-name">Teacher</div></div>
-        <div class="role-card"><div class="role-icon"><i class="fas fa-user-graduate"></i></div><div class="role-name">Student</div></div>
-        <div class="role-card"><div class="role-icon"><i class="fas fa-people-roof"></i></div><div class="role-name">Parent</div></div>
-        <div class="role-card"><div class="role-icon"><i class="fas fa-calculator"></i></div><div class="role-name">Accountant</div></div>
-        <div class="role-card"><div class="role-icon"><i class="fas fa-bus"></i></div><div class="role-name">Driver</div></div>
-        <div class="role-card"><div class="role-icon"><i class="fas fa-bed"></i></div><div class="role-name">Hostel Staff</div></div>
-        <div class="role-card"><div class="role-icon"><i class="fas fa-headset"></i></div><div class="role-name">Front Office</div></div>
-      </div>
+    <div class="roles-grid">
+      <div class="role-card reveal reveal-d1"><span class="role-icon">👨‍💼</span><h4>Super Admin</h4></div>
+      <div class="role-card reveal reveal-d1"><span class="role-icon">🏫</span><h4>School Admin</h4></div>
+      <div class="role-card reveal reveal-d2"><span class="role-icon">👨‍🏫</span><h4>Teacher</h4></div>
+      <div class="role-card reveal reveal-d2"><span class="role-icon">🧑‍🎓</span><h4>Student</h4></div>
+      <div class="role-card reveal reveal-d3"><span class="role-icon">👨‍👩‍👧</span><h4>Parent</h4></div>
+      <div class="role-card reveal reveal-d3"><span class="role-icon">🚌</span><h4>Driver</h4></div>
+      <div class="role-card reveal reveal-d4"><span class="role-icon">📚</span><h4>Librarian</h4></div>
+      <div class="role-card reveal reveal-d4"><span class="role-icon">💰</span><h4>Accountant</h4></div>
+      <div class="role-card reveal reveal-d5"><span class="role-icon">🛡️</span><h4>Security</h4></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- 22+ MODULES -->
-  <section>
-    <div class="container">
-      <div class="sec-head reveal">
-        <div class="tag">Comprehensive Suite</div>
-        <h2 class="h2">22+ Fully Integrated Modules</h2>
-        <p class="lead">Every aspect of school operations, connected in one seamless platform — no more juggling multiple tools.</p>
-      </div>
-      <div class="mod-group reveal">
-        <div class="mod-group-head"><div class="mod-group-icon"><i class="fas fa-graduation-cap"></i></div><div class="mod-group-title">Academic & Classroom</div></div>
-        <div class="mod-chips">
-          <div class="mod-chip"><div class="mod-chip-icon"><i class="fas fa-user-plus"></i></div><div><div class="mod-chip-name">Student Admission</div><div class="mod-chip-desc">Digital enrollment & profiling</div></div></div>
-          <div class="mod-chip"><div class="mod-chip-icon"><i class="fas fa-calendar-days"></i></div><div><div class="mod-chip-name">Timetable Management</div><div class="mod-chip-desc">Auto-generate class schedules</div></div></div>
-          <div class="mod-chip"><div class="mod-chip-icon"><i class="fas fa-clipboard-check"></i></div><div><div class="mod-chip-name">Attendance (QR-Based)</div><div class="mod-chip-desc">QR scan & manual entry</div></div></div>
-          <div class="mod-chip"><div class="mod-chip-icon"><i class="fas fa-file-pen"></i></div><div><div class="mod-chip-name">Exams & Grading</div><div class="mod-chip-desc">Multi-term, custom grading</div></div></div>
-          <div class="mod-chip"><div class="mod-chip-icon"><i class="fas fa-file-invoice"></i></div><div><div class="mod-chip-name">Report Cards</div><div class="mod-chip-desc">AI comments + PDF export</div></div></div>
-          <div class="mod-chip"><div class="mod-chip-icon"><i class="fas fa-tasks"></i></div><div><div class="mod-chip-name">Assignments & Learning</div><div class="mod-chip-desc">Create, submit & grade online</div></div></div>
-          <div class="mod-chip"><div class="mod-chip-icon"><i class="fas fa-book"></i></div><div><div class="mod-chip-name">Syllabus Tracking</div><div class="mod-chip-desc">Topic-wise progress</div></div></div>
-          <div class="mod-chip"><div class="mod-chip-icon"><i class="fas fa-notebook"></i></div><div><div class="mod-chip-name">Digital Diary</div><div class="mod-chip-desc">Homework & parent receipts</div></div></div>
-        </div>
-      </div>
-      <div class="mod-group reveal">
-        <div class="mod-group-head"><div class="mod-group-icon"><i class="fas fa-indian-rupee-sign"></i></div><div class="mod-group-title">Finance & HR</div></div>
-        <div class="mod-chips">
-          <div class="mod-chip"><div class="mod-chip-icon"><i class="fas fa-indian-rupee-sign"></i></div><div><div class="mod-chip-name">Fee Management</div><div class="mod-chip-desc">Multi-tier structures & receipts</div></div></div>
-          <div class="mod-chip"><div class="mod-chip-icon"><i class="fas fa-credit-card"></i></div><div><div class="mod-chip-name">Online Payments</div><div class="mod-chip-desc">Razorpay gateway integrated</div></div></div>
-          <div class="mod-chip"><div class="mod-chip-icon"><i class="fas fa-book-open"></i></div><div><div class="mod-chip-name">Finance & Accounting</div><div class="mod-chip-desc">Double-entry GL, P&L, Balance Sheet</div></div></div>
-          <div class="mod-chip"><div class="mod-chip-icon"><i class="fas fa-id-card"></i></div><div><div class="mod-chip-name">HR & Payroll</div><div class="mod-chip-desc">Staff salary & leave management</div></div></div>
-          <div class="mod-chip"><div class="mod-chip-icon"><i class="fas fa-chart-pie"></i></div><div><div class="mod-chip-name">Budget Planning</div><div class="mod-chip-desc">AI-assisted forecasting</div></div></div>
-        </div>
-      </div>
-      <div class="mod-group reveal">
-        <div class="mod-group-head"><div class="mod-group-icon"><i class="fas fa-building"></i></div><div class="mod-group-title">Hostel, Transport & Front Office</div></div>
-        <div class="mod-chips">
-          <div class="mod-chip"><div class="mod-chip-icon"><i class="fas fa-bed"></i></div><div><div class="mod-chip-name">Hostel Management</div><div class="mod-chip-desc">Rooms, beds, mess, gate pass</div></div></div>
-          <div class="mod-chip"><div class="mod-chip-icon"><i class="fas fa-bus"></i></div><div><div class="mod-chip-name">Transport & GPS</div><div class="mod-chip-desc">Live tracking & route management</div></div></div>
-          <div class="mod-chip"><div class="mod-chip-icon"><i class="fas fa-qrcode"></i></div><div><div class="mod-chip-name">QR Gate Pass</div><div class="mod-chip-desc">Verified entry & exit system</div></div></div>
-          <div class="mod-chip"><div class="mod-chip-icon"><i class="fas fa-phone-volume"></i></div><div><div class="mod-chip-name">Front Office</div><div class="mod-chip-desc">Visitors, calls, complaints</div></div></div>
-        </div>
-      </div>
-      <div class="mod-group reveal">
-        <div class="mod-group-head"><div class="mod-group-icon"><i class="fas fa-comments"></i></div><div class="mod-group-title">Communication & Engagement</div></div>
-        <div class="mod-chips">
-          <div class="mod-chip"><div class="mod-chip-icon"><i class="fas fa-bullhorn"></i></div><div><div class="mod-chip-name">Announcements</div><div class="mod-chip-desc">SMS, email, WhatsApp, voice</div></div></div>
-          <div class="mod-chip"><div class="mod-chip-icon"><i class="fas fa-message"></i></div><div><div class="mod-chip-name">Chat & Messaging</div><div class="mod-chip-desc">Direct & group conversations</div></div></div>
-          <div class="mod-chip"><div class="mod-chip-icon"><i class="fas fa-newspaper"></i></div><div><div class="mod-chip-name">Social Feed</div><div class="mod-chip-desc">Posts, likes, community</div></div></div>
-          <div class="mod-chip"><div class="mod-chip-icon"><i class="fas fa-heart-pulse"></i></div><div><div class="mod-chip-name">Health & Wellness</div><div class="mod-chip-desc">Medical history & health scores</div></div></div>
-          <div class="mod-chip"><div class="mod-chip-icon"><i class="fas fa-handshake"></i></div><div><div class="mod-chip-name">PTM Booking</div><div class="mod-chip-desc">Parent-teacher meeting slots</div></div></div>
-          <div class="mod-chip"><div class="mod-chip-icon"><i class="fas fa-id-badge"></i></div><div><div class="mod-chip-name">ID Card Generation</div><div class="mod-chip-desc">QR-based digital ID cards</div></div></div>
-        </div>
-      </div>
+<!-- MODULES -->
+<section class="section" style="background:var(--bg2)">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-tag"><i class="fas fa-th"></i> Modules</div>
+      <h2>22+ Modules Included</h2>
+      <p>Everything a school needs — all built-in, no extra plugins required.</p>
+      <div class="divider"></div>
     </div>
-  </section>
+    <div class="module-grid reveal">
+      <span class="module-chip"><i class="fas fa-user-graduate"></i>Student Management</span>
+      <span class="module-chip"><i class="fas fa-clipboard-check"></i>Attendance</span>
+      <span class="module-chip"><i class="fas fa-rupee-sign"></i>Fee Management</span>
+      <span class="module-chip"><i class="fas fa-calendar-alt"></i>Timetable</span>
+      <span class="module-chip"><i class="fas fa-file-alt"></i>Exam & Results</span>
+      <span class="module-chip"><i class="fas fa-map-marked-alt"></i>GPS Tracking</span>
+      <span class="module-chip"><i class="fas fa-book"></i>Library</span>
+      <span class="module-chip"><i class="fas fa-bed"></i>Hostel</span>
+      <span class="module-chip"><i class="fas fa-money-bill-wave"></i>Payroll</span>
+      <span class="module-chip"><i class="fas fa-bell"></i>Notifications</span>
+      <span class="module-chip"><i class="fas fa-robot"></i>AI Grading</span>
+      <span class="module-chip"><i class="fas fa-comments"></i>Parent Communication</span>
+      <span class="module-chip"><i class="fas fa-tasks"></i>Homework</span>
+      <span class="module-chip"><i class="fas fa-certificate"></i>Certificates</span>
+      <span class="module-chip"><i class="fas fa-shopping-cart"></i>Canteen</span>
+      <span class="module-chip"><i class="fas fa-medkit"></i>Health Records</span>
+      <span class="module-chip"><i class="fas fa-chart-bar"></i>Reports & Analytics</span>
+      <span class="module-chip"><i class="fas fa-door-open"></i>Gate Management</span>
+      <span class="module-chip"><i class="fas fa-camera"></i>CCTV Integration</span>
+      <span class="module-chip"><i class="fas fa-users"></i>Staff Management</span>
+      <span class="module-chip"><i class="fas fa-envelope"></i>Email & SMS</span>
+      <span class="module-chip"><i class="fas fa-mobile-alt"></i>Mobile Apps</span>
+    </div>
+  </div>
+</section>
 
-  <!-- AI FEATURE -->
-  <section>
-    <div class="container">
-      <div class="feat-grid">
-        <div>
-          <div class="tag reveal-l">AI Intelligence</div>
-          <h2 class="h2 reveal-l">Smart Automation<br>That Saves Hours</h2>
-          <div class="line reveal-l"></div>
-          <ul class="feat-list">
-            <li class="feat-item reveal-l">
-              <div class="feat-item-icon"><i class="fas fa-robot"></i></div>
-              <div><div class="feat-item-title">24/7 AI Chatbot</div><div class="feat-item-desc">Instant answers for fees, attendance, exam schedules — for every stakeholder, on web and mobile, around the clock.</div></div>
-            </li>
-            <li class="feat-item reveal-l">
-              <div class="feat-item-icon"><i class="fas fa-file-pen"></i></div>
-              <div><div class="feat-item-title">Auto Report Card Comments</div><div class="feat-item-desc">AI generates personalized, performance-based teacher comments. Reduces preparation time by up to 80%.</div></div>
-            </li>
-            <li class="feat-item reveal-l">
-              <div class="feat-item-icon"><i class="fas fa-chart-line"></i></div>
-              <div><div class="feat-item-title">Predictive Analytics</div><div class="feat-item-desc">Detects chronic absenteeism, predicts fee defaulters, and flags at-risk students before problems escalate.</div></div>
-            </li>
-            <li class="feat-item reveal-l">
-              <div class="feat-item-icon"><i class="fas fa-lightbulb"></i></div>
-              <div><div class="feat-item-title">Smart Recommendations</div><div class="feat-item-desc">Timetable optimization, communication timing, budget forecasting — all AI-assisted and actionable.</div></div>
-            </li>
-          </ul>
+<!-- GPS FEATURE -->
+<section class="section">
+  <div class="container">
+    <div class="split">
+      <div class="reveal-l">
+        <div class="section-tag"><i class="fas fa-map-marker-alt"></i> GPS Tracking</div>
+        <h2>Real-Time Bus & Student Tracking</h2>
+        <p style="margin-top:16px;margin-bottom:24px">Parents know exactly where the school bus is, at every moment. Live GPS updates, route replay, and instant alerts when a child boards or exits.</p>
+        <div class="feature-list">
+          <div class="feature-item">
+            <div class="feature-icon"><i class="fas fa-location-arrow"></i></div>
+            <div><h4>Live Map Tracking</h4><p>Real-time bus position on an interactive map visible to parents and admins.</p></div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon"><i class="fas fa-bell"></i></div>
+            <div><h4>Arrival Alerts</h4><p>Instant push notification when the bus is 5 minutes from your stop.</p></div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon"><i class="fas fa-route"></i></div>
+            <div><h4>Route Optimisation</h4><p>AI-suggested routes to reduce fuel costs and travel time.</p></div>
+          </div>
         </div>
-        <div class="reveal-r">
-          <div class="ai-card">
-            <div class="ai-card-head">
-              <div class="ai-avatar"><i class="fas fa-robot"></i></div>
-              <div><div class="ai-name">AI Assistant</div><div class="ai-online"><span class="ai-dot-g"></span><span class="ai-status">Online · School's One</span></div></div>
+      </div>
+      <div class="reveal-r">
+        <div class="card" style="background:var(--s2);padding:28px">
+          <div style="font-size:0.78rem;color:var(--muted);margin-bottom:16px;display:flex;align-items:center;gap:8px">
+            <span style="width:8px;height:8px;background:var(--green);border-radius:50%;display:inline-block"></span>
+            3 vehicles active
+          </div>
+          <!-- SVG map mockup -->
+          <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:10px;background:#0d0d0d;border:1px solid var(--b1)">
+            <line x1="40" y1="100" x2="280" y2="100" stroke="#222" stroke-width="8" stroke-linecap="round"/>
+            <line x1="160" y1="30" x2="160" y2="170" stroke="#222" stroke-width="8" stroke-linecap="round"/>
+            <line x1="40" y1="60" x2="240" y2="140" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
+            <!-- route line -->
+            <polyline points="60,140 120,100 200,80 260,60" fill="none" stroke="#FF3B30" stroke-width="2.5" stroke-dasharray="6,3" opacity="0.7"/>
+            <!-- bus icons -->
+            <circle cx="120" cy="100" r="10" fill="#FF3B30" opacity="0.9"/>
+            <text x="120" y="104" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">B1</text>
+            <circle cx="200" cy="80" r="10" fill="#FF9500" opacity="0.9"/>
+            <text x="200" y="84" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">B2</text>
+            <circle cx="250" cy="62" r="10" fill="#34C759" opacity="0.9"/>
+            <text x="250" y="66" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">B3</text>
+            <!-- school marker -->
+            <circle cx="160" cy="100" r="6" fill="#007AFF"/>
+            <text x="160" y="88" text-anchor="middle" fill="#aaa" font-size="7">School</text>
+          </svg>
+          <div style="display:flex;gap:10px;margin-top:16px">
+            <div style="flex:1;background:var(--bg);border-radius:8px;padding:12px;border:1px solid var(--b1);text-align:center">
+              <div style="font-size:0.78rem;color:var(--muted)">Bus 1</div>
+              <div style="font-size:0.85rem;font-weight:600;color:var(--red)">En Route</div>
             </div>
-            <div class="ai-messages">
-              <div class="ai-msg-user">What is Riya's attendance this month?</div>
-              <div class="ai-msg-bot">Riya Sharma (Grade 9-A) has attended <strong>22 of 25 days</strong> — 88% this month. Absent on Oct 4, 7, and 12.<div class="ai-msg-meta">AI · 0.6s</div></div>
-              <div class="ai-msg-user">Generate her report card comment.</div>
-              <div class="ai-msg-bot">"Riya demonstrates consistent effort and a positive attitude towards learning. With improved regularity, she is well-positioned to achieve excellent results this term."<div class="ai-msg-meta">AI · 0.8s · Teacher can edit before publishing</div></div>
+            <div style="flex:1;background:var(--bg);border-radius:8px;padding:12px;border:1px solid var(--b1);text-align:center">
+              <div style="font-size:0.78rem;color:var(--muted)">Bus 2</div>
+              <div style="font-size:0.85rem;font-weight:600;color:var(--orange)">Loading</div>
             </div>
-            <div class="ai-input">
-              <span>Ask anything about your school…</span>
-              <div class="ai-send"><i class="fas fa-paper-plane"></i></div>
+            <div style="flex:1;background:var(--bg);border-radius:8px;padding:12px;border:1px solid var(--b1);text-align:center">
+              <div style="font-size:0.78rem;color:var(--muted)">Bus 3</div>
+              <div style="font-size:0.85rem;font-weight:600;color:var(--green)">Arrived</div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- GPS FEATURE -->
-  <section>
-    <div class="container">
-      <div class="feat-grid rev">
-        <div>
-          <div class="tag reveal-r">GPS & Transport</div>
-          <h2 class="h2 reveal-r">Student Safety,<br>In Real-Time</h2>
-          <div class="line reveal-r"></div>
-          <ul class="feat-list">
-            <li class="feat-item reveal-r">
-              <div class="feat-item-icon"><i class="fas fa-map-location-dot"></i></div>
-              <div><div class="feat-item-title">Live Fleet Dashboard</div><div class="feat-item-desc">Interactive map showing every vehicle's real-time position, speed, and route status simultaneously.</div></div>
-            </li>
-            <li class="feat-item reveal-r">
-              <div class="feat-item-icon"><i class="fas fa-bell"></i></div>
-              <div><div class="feat-item-title">Automatic Parent Alerts</div><div class="feat-item-desc">Push notifications when bus approaches stop, child boards, child drops off, or bus is running late.</div></div>
-            </li>
-            <li class="feat-item reveal-r">
-              <div class="feat-item-icon"><i class="fas fa-triangle-exclamation"></i></div>
-              <div><div class="feat-item-title">Safety Monitoring</div><div class="feat-item-desc">Instant alerts for speed violations, route deviations, and geofence breaches. Complete driver performance logs.</div></div>
-            </li>
-            <li class="feat-item reveal-r">
-              <div class="feat-item-icon"><i class="fas fa-mobile-screen"></i></div>
-              <div><div class="feat-item-title">No Hardware Required</div><div class="feat-item-desc">Driver shares GPS via their mobile app. Works offline with automatic sync when connection is restored.</div></div>
-            </li>
-          </ul>
+<!-- AI FEATURE -->
+<section class="section" style="background:var(--bg2)">
+  <div class="container">
+    <div class="split flip">
+      <div class="reveal-r">
+        <div class="section-tag"><i class="fas fa-robot"></i> AI Engine</div>
+        <h2>Artificial Intelligence Built Into Every Grade</h2>
+        <p style="margin-top:16px;margin-bottom:24px">Our AI engine analyses student performance across exams, homework, and participation — and provides actionable insights to teachers before problems become failures.</p>
+        <div class="feature-list">
+          <div class="feature-item">
+            <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+            <div><h4>Performance Prediction</h4><p>AI predicts which students are at risk of falling behind — weeks in advance.</p></div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon"><i class="fas fa-brain"></i></div>
+            <div><h4>Auto-Grading</h4><p>Objective answer sheets are graded instantly. Teachers review subjective questions.</p></div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon"><i class="fas fa-lightbulb"></i></div>
+            <div><h4>Smart Recommendations</h4><p>Personalised study suggestions for each student based on their learning patterns.</p></div>
+          </div>
         </div>
-        <div class="reveal-l">
-          <div class="gps-card">
-            <div class="gps-map">
-              <div class="gps-map-grid"></div>
-              <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice">
-                <path d="M40,160 Q100,100 180,120 Q260,140 340,70" stroke="rgba(255,59,48,0.35)" stroke-width="2" fill="none" stroke-dasharray="8,5"/>
-                <path d="M40,80 Q110,150 200,160 Q280,170 340,130" stroke="rgba(255,149,0,0.25)" stroke-width="2" fill="none" stroke-dasharray="8,5"/>
-                <circle cx="180" cy="120" r="7" fill="#FF3B30"/><circle cx="180" cy="120" r="14" fill="rgba(255,59,48,.2)"/>
-                <circle cx="130" cy="155" r="5" fill="#FF9500"/><circle cx="130" cy="155" r="10" fill="rgba(255,149,0,.15)"/>
-                <circle cx="60" cy="145" r="4" fill="rgba(255,255,255,.3)"/>
-                <circle cx="280" cy="90" r="4" fill="rgba(255,255,255,.3)"/>
-              </svg>
-              <div class="gps-live-badge"><span class="gps-dot" style="width:6px;height:6px;border-radius:50%;background:#25D366;animation:pulse-dot 1.5s ease-in-out infinite;display:inline-block"></span> Live</div>
+      </div>
+      <div class="reveal-l">
+        <div class="card" style="background:var(--s2);padding:24px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--b1)">
+            <div style="width:32px;height:32px;background:var(--grad);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.85rem;color:#fff"><i class="fas fa-robot"></i></div>
+            <div>
+              <div style="font-size:0.85rem;font-weight:600">AI Assistant</div>
+              <div style="font-size:0.72rem;color:var(--green)">● Online</div>
             </div>
-            <div class="gps-body">
-              <div class="gps-vehicles">
-                <div class="gps-veh">
-                  <div class="gps-veh-l"><i class="fas fa-bus"></i><div><div class="gps-veh-name">KA-01-AB-1234</div><div class="gps-veh-stop">Route 1 · Stop 4 of 8</div></div></div>
-                  <div class="gps-status s-green">On Route · 42 km/h</div>
-                </div>
-                <div class="gps-veh">
-                  <div class="gps-veh-l"><i class="fas fa-bus"></i><div><div class="gps-veh-name">KA-01-CD-5678</div><div class="gps-veh-stop">Route 2 · At Stop 5</div></div></div>
-                  <div class="gps-status s-orange">Picking up · 0 km/h</div>
-                </div>
-              </div>
-              <div class="gps-notif">
-                <i class="fas fa-bell"></i>
-                <div>
-                  <div class="gps-notif-title">Bus approaching your stop</div>
-                  <div class="gps-notif-text">Estimated arrival in <strong>3 minutes</strong> · Route 1, Stop 4 of 8</div>
-                </div>
-              </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="background:var(--bg);border-radius:10px 10px 10px 2px;padding:12px;border:1px solid var(--b1);max-width:85%;font-size:0.83rem;color:#ccc">
+              Riya Sharma's Math score dropped 18% this month. Weakness detected in Algebra. Recommend revision exercises.
+            </div>
+            <div style="background:rgba(255,59,48,0.1);border-radius:10px 10px 2px 10px;padding:12px;border:1px solid rgba(255,59,48,0.2);max-width:85%;margin-left:auto;font-size:0.83rem;color:#ccc">
+              Generate a personalised practice sheet for her.
+            </div>
+            <div style="background:var(--bg);border-radius:10px 10px 10px 2px;padding:12px;border:1px solid var(--b1);max-width:85%;font-size:0.83rem;color:#ccc">
+              Done. 15 questions focused on Equations and Factoring — shared with student and parent app. ✓
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- TECH STACK -->
-  <section>
-    <div class="container">
-      <div class="sec-head reveal">
-        <div class="tag">Built to Last</div>
-        <h2 class="h2">Enterprise-Grade Technology</h2>
-        <p class="lead">Built on battle-tested, modern frameworks designed for security, performance, and scale.</p>
-      </div>
-      <div class="tech-grid reveal">
-        <div class="tech-pill"><i class="fas fa-server"></i><span>Laravel 12</span></div>
-        <div class="tech-pill"><i class="fab fa-vuejs"></i><span>Vue 3 + Inertia.js</span></div>
-        <div class="tech-pill"><i class="fas fa-wind"></i><span>Tailwind CSS 4</span></div>
-        <div class="tech-pill"><i class="fas fa-database"></i><span>MySQL</span></div>
-        <div class="tech-pill"><i class="fas fa-mobile-screen"></i><span>Native Android & iOS</span></div>
-        <div class="tech-pill"><i class="fas fa-robot"></i><span>AI / NLP Engine</span></div>
-        <div class="tech-pill"><i class="fas fa-location-dot"></i><span>Real-Time GPS</span></div>
-        <div class="tech-pill"><i class="fas fa-credit-card"></i><span>Razorpay Gateway</span></div>
-        <div class="tech-pill"><i class="fas fa-bell"></i><span>Firebase FCM</span></div>
-        <div class="tech-pill"><i class="fas fa-qrcode"></i><span>QR Code Engine</span></div>
-        <div class="tech-pill"><i class="fab fa-aws"></i><span>AWS S3 Storage</span></div>
-        <div class="tech-pill"><i class="fas fa-shield-halved"></i><span>Role-Based Auth</span></div>
-        <div class="tech-pill"><i class="fas fa-file-pdf"></i><span>PDF Generation</span></div>
-        <div class="tech-pill"><i class="fas fa-chart-line"></i><span>Chart.js Analytics</span></div>
-        <div class="tech-pill"><i class="fas fa-bolt"></i><span>Vite 7 Build Tool</span></div>
+<!-- TECH STACK -->
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-tag"><i class="fas fa-code"></i> Tech Stack</div>
+      <h2>Built on Modern Technology</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="tech-grid reveal">
+      <div class="tech-item"><i class="fab fa-laravel" style="color:#FF2D20"></i><h4>Laravel 12</h4></div>
+      <div class="tech-item"><i class="fab fa-vuejs" style="color:#42B883"></i><h4>Vue.js 3</h4></div>
+      <div class="tech-item"><i class="fab fa-react" style="color:#61DAFB"></i><h4>React Native</h4></div>
+      <div class="tech-item"><i class="fas fa-database" style="color:#00758F"></i><h4>MySQL</h4></div>
+      <div class="tech-item"><i class="fab fa-google" style="color:#FBBC05"></i><h4>Firebase FCM</h4></div>
+      <div class="tech-item"><i class="fas fa-map" style="color:#34A853"></i><h4>Google Maps</h4></div>
+      <div class="tech-item"><i class="fas fa-credit-card" style="color:#528FF0"></i><h4>Razorpay</h4></div>
+      <div class="tech-item"><i class="fab fa-android" style="color:#3DDC84"></i><h4>Android</h4></div>
+      <div class="tech-item"><i class="fab fa-apple" style="color:#fff"></i><h4>iOS</h4></div>
+      <div class="tech-item"><i class="fas fa-robot" style="color:var(--orange)"></i><h4>AI Engine</h4></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section" style="background:var(--bg2)">
+  <div class="container">
+    <div class="cta-block reveal">
+      <h2>Ready to modernise your <span class="gradient-text">school?</span></h2>
+      <p>Book a free 30-minute demo and see how School ERP can transform your institution.</p>
+      <div class="cta-actions">
+        <a href="contact.html" class="btn btn-primary btn-lg magnetic">Book Free Demo <i class="fas fa-arrow-right"></i></a>
+        <a href="https://wa.me/919999999999" class="btn-wa btn-lg" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i>WhatsApp Us</a>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- IMPLEMENTATION TIMELINE -->
-  <section>
-    <div class="container">
-      <div class="sec-head reveal">
-        <div class="tag">Go Live in 7–12 Weeks</div>
-        <h2 class="h2">Structured Implementation Plan</h2>
-        <p class="lead">From setup to full activation — with hands-on training and dedicated support at every phase.</p>
-      </div>
-      <div class="timeline reveal">
-        <div class="tl-card">
-          <div class="tl-num">01</div>
-          <div class="tl-weeks">2–4 Weeks</div>
-          <div class="tl-title">Setup & Configuration</div>
-          <div class="tl-desc">Initial deployment, school profile setup, data migration from existing systems, and admin training sessions.</div>
-        </div>
-        <div class="tl-card">
-          <div class="tl-num">02</div>
-          <div class="tl-weeks">2–3 Weeks</div>
-          <div class="tl-title">Core Modules Go-Live</div>
-          <div class="tl-desc">Academic management, attendance, fee collection, AI chatbot activation, and mobile app distribution to staff.</div>
-        </div>
-        <div class="tl-card">
-          <div class="tl-num">03</div>
-          <div class="tl-weeks">2–3 Weeks</div>
-          <div class="tl-title">Extended Modules</div>
-          <div class="tl-desc">Hostel management, transport with live GPS, front office, health records, and parent portal onboarding.</div>
-        </div>
-        <div class="tl-card">
-          <div class="tl-num">04</div>
-          <div class="tl-weeks">1–2 Weeks</div>
-          <div class="tl-title">Full Activation</div>
-          <div class="tl-desc">Multi-channel communications, AI analytics, GPS dashboards, social feed, and complete mobile rollout.</div>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo"><img src="assets/images/logo.png" alt="Trivarta Tech"/><span>Trivarta Tech</span></div>
+        <p>Building tomorrow's digital infrastructure for schools and businesses across India.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
         </div>
       </div>
+      <div class="footer-col"><h4>Products</h4><a href="school-erp.html">School ERP</a><a href="smart-panel.html">Smart Panel</a><a href="syllabus-content.html">Syllabus Content</a></div>
+      <div class="footer-col"><h4>Services</h4><a href="web-application.html">Web Application</a><a href="mobile-application.html">Mobile Application</a><a href="website-development.html">Website Development</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="about.html">About Us</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a><a href="terms-and-conditions.html">Terms & Conditions</a></div>
     </div>
-  </section>
-
-  <!-- CTA -->
-  <section>
-    <div class="container">
-      <div class="cta-block reveal">
-        <div class="cta-orb cta-orb-1"></div>
-        <div class="cta-orb cta-orb-2"></div>
-        <div class="tag">Ready to Transform?</div>
-        <div class="cta-h">See School's One ERP<br>in Action — Free Demo</div>
-        <p class="cta-p">Whether you manage 1 school or 50, we have a solution that fits. Book a personalized demo and see how fast your school can go fully digital.</p>
-        <div class="cta-actions">
-          <a href="https://wa.me/918660234312" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Book a Free Demo</a>
-          <a href="assets/brochure/Trivarta-Tech-brochure.pdf" download class="btn-ghost"><i class="fas fa-download"></i> Download Brochure</a>
-        </div>
-      </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Trivarta Tech. All rights reserved.</p>
+      <div style="display:flex;gap:20px"><a href="privacy-policy.html">Privacy</a><a href="terms-and-conditions.html">Terms</a></div>
     </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <img src="assets/images/logo.png" alt="Trivarta Tech" class="footer-logo">
-          <p class="footer-about">Smart Digital Solutions for Education. Empowering institutions with intelligent technology.</p>
-        </div>
-        <div>
-          <div class="footer-h">Quick Links</div>
-          <div class="footer-links">
-            <a href="/">Home</a><a href="/about.html">About</a>
-            <a href="/products.html">Products</a><a href="/services.html">Services</a><a href="/contact.html">Contact</a>
-          </div>
-        </div>
-        <div>
-          <div class="footer-h">Products</div>
-          <div class="footer-links">
-            <a href="/school-erp.html">School's One ERP</a>
-            <a href="/syllabus-content.html">Syllabus Content</a>
-            <a href="/smart-panel.html">Smart Panel</a>
-          </div>
-        </div>
-        <div>
-          <div class="footer-h">Legal</div>
-          <div class="footer-links">
-            <a href="/privacy-policy.html">Privacy Policy</a>
-            <a href="/terms-and-conditions.html">Terms & Conditions</a>
-            <a href="/account-deletion.html">Account Deletion</a>
-          </div>
-        </div>
-        <div>
-          <div class="footer-h">Contact</div>
-          <div class="footer-contact-item"><i class="fas fa-envelope"></i> contactus@trivarta.in</div>
-          <div class="footer-contact-item"><i class="fas fa-phone"></i> 9743136128 | 8660234312</div>
-          <a href="https://wa.me/918660234312" target="_blank" class="footer-wa"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
-        </div>
-      </div>
-      <div class="footer-bottom">&copy; 2025 Trivarta Tech Pvt Ltd. All rights reserved.</div>
-    </div>
-  </footer>
-
-  <a href="https://wa.me/918660234312" target="_blank" class="wa-float" aria-label="Chat on WhatsApp"><i class="fab fa-whatsapp" style="font-size:1.4rem"></i></a>
-  <button class="btt" id="btt" aria-label="Back to top"><i class="fas fa-arrow-up" style="font-size:.75rem"></i></button>
-
-  <script>
-    // Scroll progress + back to top + navbar
-    var sp = document.getElementById('sp');
-    var nav = document.getElementById('navbar');
-    var btt = document.getElementById('btt');
-    window.addEventListener('scroll', function () {
-      var st = window.scrollY;
-      var dh = document.documentElement.scrollHeight - window.innerHeight;
-      sp.style.width = (st / dh * 100) + '%';
-      nav.classList.toggle('scrolled', st > 50);
-      btt.classList.toggle('show', st > 400);
-    }, { passive: true });
-    btt.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
-
-    // Hamburger
-    var ham = document.getElementById('ham');
-    var mobileNav = document.getElementById('mobile-nav');
-    ham.addEventListener('click', function () {
-      ham.classList.toggle('open');
-      mobileNav.classList.toggle('open');
-    });
-
-    // Scroll reveal (IntersectionObserver)
-    var revealEls = document.querySelectorAll('.reveal, .reveal-l, .reveal-r');
-    var obs = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    revealEls.forEach(function (el) { obs.observe(el); });
-
-    // Ripple on buttons
-    document.querySelectorAll('.btn-wa, .btn-ghost, .btn-primary, .btn-nav').forEach(function (btn) {
-      btn.addEventListener('click', function (e) {
-        var rect = btn.getBoundingClientRect();
-        var size = Math.max(rect.width, rect.height);
-        var r = document.createElement('span');
-        r.style.cssText = 'position:absolute;border-radius:50%;background:rgba(255,255,255,.22);pointer-events:none;width:'+size+'px;height:'+size+'px;left:'+(e.clientX-rect.left-size/2)+'px;top:'+(e.clientY-rect.top-size/2)+'px;transform:scale(0);animation:rpl .5s ease-out forwards;';
-        btn.style.position = 'relative'; btn.style.overflow = 'hidden';
-        btn.appendChild(r);
-        setTimeout(function () { r.remove(); }, 600);
-      });
-    });
-    var rs = document.createElement('style');
-    rs.textContent = '@keyframes rpl{to{transform:scale(2.5);opacity:0}}';
-    document.head.appendChild(rs);
-
-    // Magnetic on CTA buttons (desktop only)
-    if (window.matchMedia('(hover:hover)').matches) {
-      document.querySelectorAll('.cta-actions .btn-wa, .cta-actions .btn-ghost, .hero-actions .btn-wa, .hero-actions .btn-ghost').forEach(function (btn) {
-        btn.addEventListener('mousemove', function (e) {
-          var r = btn.getBoundingClientRect();
-          btn.style.transform = 'translate(' + ((e.clientX - r.left - r.width/2) * .2) + 'px,' + ((e.clientY - r.top - r.height/2) * .25) + 'px)';
-        });
-        btn.addEventListener('mouseleave', function () {
-          btn.style.transition = 'transform .4s cubic-bezier(.4,0,.2,1)';
-          btn.style.transform = '';
-          setTimeout(function () { btn.style.transition = ''; }, 400);
-        });
-      });
-    }
-  </script>
+  </div>
+</footer>
 </body>
 </html>
