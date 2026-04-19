@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy | Trivarta Tech Pvt Ltd</title>
+  <meta name="description" content="Privacy Policy for Schools 1 mobile application by Trivarta Tech Pvt Ltd. Learn how we collect, use, and protect your personal information.">
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { primary: '#FF3B30', 'primary-hover': '#D32F2F', dark: '#0F0F0F', surface: '#1A1A1A', 'surface-hl': '#262626' },
+          fontFamily: { display: ['Syne','sans-serif'], body: ['Outfit','sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-dark font-body mesh-bg">
+
+  <!-- NAVBAR -->
+  <nav id="navbar" class="fixed top-0 left-0 w-full z-50" data-testid="navbar">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <a href="/" class="flex items-center" data-testid="logo-link"><img src="assets/images/logo.png" alt="Trivarta Tech" class="h-12 sm:h-14"></a>
+        <div class="hidden lg:flex items-center gap-8">
+          <a href="/" class="nav-link" data-testid="nav-home">Home</a>
+          <a href="/about" class="nav-link" data-testid="nav-about">About</a>
+          <div class="relative group" data-testid="nav-products-dropdown">
+            <a href="/products" class="nav-link flex items-center gap-1.5">Products <i class="fas fa-chevron-down text-[10px] transition-transform duration-300 group-hover:rotate-180"></i></a>
+            <div class="dropdown-menu absolute top-full left-1/2 -translate-x-1/2 mt-3 w-60 bg-surface border border-[#333] rounded-xl overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+              <a href="/school-erp" class="block px-5 py-3.5 text-sm text-white/70 hover:text-white hover:bg-white/5 transition-all"><i class="fas fa-building-columns mr-2 text-primary/70 text-xs"></i>School's One - ERP</a>
+              <a href="/syllabus-content" class="block px-5 py-3.5 text-sm text-white/70 hover:text-white hover:bg-white/5 transition-all"><i class="fas fa-book-open mr-2 text-primary/70 text-xs"></i>Syllabus Learning Content</a>
+            </div>
+          </div>
+          <div class="relative group" data-testid="nav-services-dropdown">
+            <a href="/services" class="nav-link flex items-center gap-1.5">Services <i class="fas fa-chevron-down text-[10px] transition-transform duration-300 group-hover:rotate-180"></i></a>
+            <div class="dropdown-menu absolute top-full left-1/2 -translate-x-1/2 mt-3 w-64 bg-surface border border-[#333] rounded-xl overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+              <a href="/website-development" class="block px-5 py-3.5 text-sm text-white/70 hover:text-white hover:bg-white/5 transition-all"><i class="fas fa-globe mr-2 text-primary/70 text-xs"></i>Website Development</a>
+              <a href="/web-application" class="block px-5 py-3.5 text-sm text-white/70 hover:text-white hover:bg-white/5 transition-all"><i class="fas fa-laptop-code mr-2 text-primary/70 text-xs"></i>Web Application Development</a>
+              <a href="/mobile-application" class="block px-5 py-3.5 text-sm text-white/70 hover:text-white hover:bg-white/5 transition-all"><i class="fas fa-mobile-screen mr-2 text-primary/70 text-xs"></i>Mobile App Development</a>
+            </div>
+          </div>
+          <a href="/smart-panel" class="nav-link" data-testid="nav-smart-panel">Smart Panel</a>
+          <a href="/contact" class="nav-link" data-testid="nav-contact">Contact</a>
+          <a href="assets/brochure/Trivarta-Tech-brochure.pdf" download class="btn-primary text-sm !py-2.5 !px-5" data-testid="nav-download-brochure"><i class="fas fa-download"></i> Brochure</a>
+        </div>
+        <button id="mobile-menu-btn" class="lg:hidden text-white text-xl p-2" data-testid="mobile-menu-button"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="lg:hidden hidden bg-dark/95 backdrop-blur-xl border-t border-white/5">
+      <div class="max-w-7xl mx-auto px-4 py-6 space-y-1">
+        <a href="/" class="block text-white/70 hover:text-white py-2.5 px-3 rounded-lg hover:bg-white/5 transition-all text-sm">Home</a>
+        <a href="/about" class="block text-white/70 hover:text-white py-2.5 px-3 rounded-lg hover:bg-white/5 transition-all text-sm">About</a>
+        <a href="/products" id="mobile-products-toggle" class="flex items-center justify-between text-white/70 hover:text-white py-2.5 px-3 rounded-lg hover:bg-white/5 transition-all text-sm">Products <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i></a>
+        <div id="mobile-products-submenu" class="hidden pl-4 space-y-1">
+          <a href="/school-erp" class="block text-white/50 hover:text-white py-2 px-3 rounded-lg hover:bg-white/5 transition-all text-sm">School's One - ERP</a>
+          <a href="/syllabus-content" class="block text-white/50 hover:text-white py-2 px-3 rounded-lg hover:bg-white/5 transition-all text-sm">Syllabus Learning Content</a>
+        </div>
+        <a href="/services" id="mobile-services-toggle" class="flex items-center justify-between text-white/70 hover:text-white py-2.5 px-3 rounded-lg hover:bg-white/5 transition-all text-sm">Services <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i></a>
+        <div id="mobile-services-submenu" class="hidden pl-4 space-y-1">
+          <a href="/website-development" class="block text-white/50 hover:text-white py-2 px-3 rounded-lg hover:bg-white/5 transition-all text-sm">Website Development</a>
+          <a href="/web-application" class="block text-white/50 hover:text-white py-2 px-3 rounded-lg hover:bg-white/5 transition-all text-sm">Web Application Development</a>
+          <a href="/mobile-application" class="block text-white/50 hover:text-white py-2 px-3 rounded-lg hover:bg-white/5 transition-all text-sm">Mobile App Development</a>
+        </div>
+        <a href="/smart-panel" class="block text-white/70 hover:text-white py-2.5 px-3 rounded-lg hover:bg-white/5 transition-all text-sm">Smart Panel</a>
+        <a href="/contact" class="block text-white/70 hover:text-white py-2.5 px-3 rounded-lg hover:bg-white/5 transition-all text-sm">Contact</a>
+        <div class="pt-3"><a href="assets/brochure/Trivarta-Tech-brochure.pdf" download class="btn-primary text-sm inline-flex" data-testid="mobile-download-brochure"><i class="fas fa-download"></i> Download Brochure</a></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero-mini mesh-bg" data-testid="privacy-hero">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <span class="text-primary text-xs font-semibold tracking-widest uppercase font-display anim-fadeInUp">Legal</span>
+      <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-white mt-3 tracking-tight anim-fadeInUp anim-delay-1">Privacy <span class="gradient-text">Policy</span></h1>
+      <p class="text-white/50 text-base sm:text-lg mt-5 max-w-2xl anim-fadeInUp anim-delay-2">Last updated: February 2025</p>
+    </div>
+  </section>
+
+  <!-- PRIVACY POLICY CONTENT -->
+  <section class="py-16 md:py-24" data-testid="privacy-content">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Introduction -->
+      <div class="legal-section mb-12" data-aos="fade-up">
+        <h2 class="font-display font-bold text-2xl text-white mb-4">1. Introduction</h2>
+        <div class="section-line mb-6"></div>
+        <p class="text-white/70 leading-relaxed">
+          Trivarta Tech Pvt Ltd ("we", "our", or "us") operates the <strong class="text-white">Schools 1</strong> mobile application (Package Name: <code class="text-primary bg-surface px-2 py-1 rounded text-sm">com.trivartatechpvtltd.schools1</code>). We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application.
+        </p>
+        <p class="text-white/70 leading-relaxed mt-4">
+          By using Schools 1, you agree to the collection and use of information in accordance with this policy.
+        </p>
+      </div>
+
+      <!-- Information We Collect -->
+      <div class="legal-section mb-12" data-aos="fade-up">
+        <h2 class="font-display font-bold text-2xl text-white mb-4">2. Information We Collect</h2>
+        <div class="section-line mb-6"></div>
+        
+        <h3 class="font-display font-semibold text-lg text-white mb-3"><i class="fas fa-user text-primary mr-2"></i>Personal Information</h3>
+        <p class="text-white/70 leading-relaxed mb-4">We may collect the following personal information:</p>
+        <ul class="list-none space-y-2 mb-6">
+          <li class="text-white/70 flex items-start"><i class="fas fa-check text-primary mr-3 mt-1 text-sm"></i>Full name</li>
+          <li class="text-white/70 flex items-start"><i class="fas fa-check text-primary mr-3 mt-1 text-sm"></i>Email address</li>
+          <li class="text-white/70 flex items-start"><i class="fas fa-check text-primary mr-3 mt-1 text-sm"></i>Phone number</li>
+          <li class="text-white/70 flex items-start"><i class="fas fa-check text-primary mr-3 mt-1 text-sm"></i>School name and association</li>
+          <li class="text-white/70 flex items-start"><i class="fas fa-check text-primary mr-3 mt-1 text-sm"></i>Student or staff information (if applicable)</li>
+        </ul>
+
+        <h3 class="font-display font-semibold text-lg text-white mb-3"><i class="fas fa-key text-primary mr-2"></i>Account Information</h3>
+        <ul class="list-none space-y-2 mb-6">
+          <li class="text-white/70 flex items-start"><i class="fas fa-check text-primary mr-3 mt-1 text-sm"></i>Login credentials (username/password - stored securely)</li>
+          <li class="text-white/70 flex items-start"><i class="fas fa-check text-primary mr-3 mt-1 text-sm"></i>User ID and account identifiers</li>
+        </ul>
+
+        <h3 class="font-display font-semibold text-lg text-white mb-3"><i class="fas fa-mobile-screen text-primary mr-2"></i>Device and Technical Information</h3>
+        <ul class="list-none space-y-2 mb-6">
+          <li class="text-white/70 flex items-start"><i class="fas fa-check text-primary mr-3 mt-1 text-sm"></i>Device model and manufacturer</li>
+          <li class="text-white/70 flex items-start"><i class="fas fa-check text-primary mr-3 mt-1 text-sm"></i>Operating system and version</li>
+          <li class="text-white/70 flex items-start"><i class="fas fa-check text-primary mr-3 mt-1 text-sm"></i>IP address</li>
+          <li class="text-white/70 flex items-start"><i class="fas fa-check text-primary mr-3 mt-1 text-sm"></i>App version</li>
+        </ul>
+
+        <h3 class="font-display font-semibold text-lg text-white mb-3"><i class="fas fa-chart-line text-primary mr-2"></i>Usage Information</h3>
+        <ul class="list-none space-y-2">
+          <li class="text-white/70 flex items-start"><i class="fas fa-check text-primary mr-3 mt-1 text-sm"></i>App interactions and navigation patterns</li>
+          <li class="text-white/70 flex items-start"><i class="fas fa-check text-primary mr-3 mt-1 text-sm"></i>Features accessed and usage frequency</li>
+          <li class="text-white/70 flex items-start"><i class="fas fa-check text-primary mr-3 mt-1 text-sm"></i>Log data and error reports</li>
+        </ul>
+      </div>
+
+      <!-- How We Use Information -->
+      <div class="legal-section mb-12" data-aos="fade-up">
+        <h2 class="font-display font-bold text-2xl text-white mb-4">3. How We Use Your Information</h2>
+        <div class="section-line mb-6"></div>
+        <p class="text-white/70 leading-relaxed mb-4">We use the collected information for the following purposes:</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-surface border border-[#333] rounded-xl p-4">
+            <i class="fas fa-user-plus text-primary mb-2"></i>
+            <p class="text-white/70 text-sm">Account creation and management</p>
+          </div>
+          <div class="bg-surface border border-[#333] rounded-xl p-4">
+            <i class="fas fa-school text-primary mb-2"></i>
+            <p class="text-white/70 text-sm">Providing school-related services</p>
+          </div>
+          <div class="bg-surface border border-[#333] rounded-xl p-4">
+            <i class="fas fa-lock text-primary mb-2"></i>
+            <p class="text-white/70 text-sm">Authentication and secure login</p>
+          </div>
+          <div class="bg-surface border border-[#333] rounded-xl p-4">
+            <i class="fas fa-headset text-primary mb-2"></i>
+            <p class="text-white/70 text-sm">Customer support and assistance</p>
+          </div>
+          <div class="bg-surface border border-[#333] rounded-xl p-4">
+            <i class="fas fa-chart-bar text-primary mb-2"></i>
+            <p class="text-white/70 text-sm">Service improvement and analytics</p>
+          </div>
+          <div class="bg-surface border border-[#333] rounded-xl p-4">
+            <i class="fas fa-shield-halved text-primary mb-2"></i>
+            <p class="text-white/70 text-sm">Security and fraud prevention</p>
+          </div>
+          <div class="bg-surface border border-[#333] rounded-xl p-4">
+            <i class="fas fa-bell text-primary mb-2"></i>
+            <p class="text-white/70 text-sm">Communication about app functionality</p>
+          </div>
+          <div class="bg-surface border border-[#333] rounded-xl p-4">
+            <i class="fas fa-gavel text-primary mb-2"></i>
+            <p class="text-white/70 text-sm">Legal compliance and obligations</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data Sharing -->
+      <div class="legal-section mb-12" data-aos="fade-up">
+        <h2 class="font-display font-bold text-2xl text-white mb-4">4. Data Sharing and Disclosure</h2>
+        <div class="section-line mb-6"></div>
+        <div class="bg-surface border border-green-500/30 rounded-xl p-6 mb-6">
+          <div class="flex items-start">
+            <i class="fas fa-shield-check text-green-500 text-xl mr-4 mt-1"></i>
+            <div>
+              <h4 class="text-white font-semibold mb-2">Our Commitment</h4>
+              <p class="text-white/70">We do <strong class="text-green-400">NOT</strong> sell your personal data to any third parties. We do <strong class="text-green-400">NOT</strong> share your information with unauthorized third parties.</p>
+            </div>
+          </div>
+        </div>
+        <p class="text-white/70 leading-relaxed mb-4">We may share your information only in the following limited circumstances:</p>
+        <ul class="list-none space-y-3">
+          <li class="text-white/70 flex items-start"><i class="fas fa-balance-scale text-primary mr-3 mt-1"></i><strong class="text-white">Legal Compliance:</strong>&nbsp;When required by law, court order, or government request</li>
+          <li class="text-white/70 flex items-start"><i class="fas fa-shield text-primary mr-3 mt-1"></i><strong class="text-white">Security:</strong>&nbsp;To protect against fraud, security threats, or illegal activities</li>
+          <li class="text-white/70 flex items-start"><i class="fas fa-cogs text-primary mr-3 mt-1"></i><strong class="text-white">Service Operation:</strong>&nbsp;With trusted service providers who assist in operating our app (under strict confidentiality)</li>
+        </ul>
+      </div>
+
+      <!-- Data Storage and Security -->
+      <div class="legal-section mb-12" data-aos="fade-up">
+        <h2 class="font-display font-bold text-2xl text-white mb-4">5. Data Storage and Security</h2>
+        <div class="section-line mb-6"></div>
+        <p class="text-white/70 leading-relaxed mb-4">We implement robust security measures to protect your personal information:</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="flex items-center bg-surface border border-[#333] rounded-xl p-4">
+            <i class="fas fa-server text-primary text-lg mr-4"></i>
+            <span class="text-white/70">Secure servers with restricted access</span>
+          </div>
+          <div class="flex items-center bg-surface border border-[#333] rounded-xl p-4">
+            <i class="fas fa-lock text-primary text-lg mr-4"></i>
+            <span class="text-white/70">Data encryption in transit and at rest</span>
+          </div>
+          <div class="flex items-center bg-surface border border-[#333] rounded-xl p-4">
+            <i class="fas fa-user-lock text-primary text-lg mr-4"></i>
+            <span class="text-white/70">Strict access control policies</span>
+          </div>
+          <div class="flex items-center bg-surface border border-[#333] rounded-xl p-4">
+            <i class="fas fa-certificate text-primary text-lg mr-4"></i>
+            <span class="text-white/70">Industry-standard security practices</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data Retention -->
+      <div class="legal-section mb-12" data-aos="fade-up">
+        <h2 class="font-display font-bold text-2xl text-white mb-4">6. Data Retention</h2>
+        <div class="section-line mb-6"></div>
+        <ul class="list-none space-y-3">
+          <li class="text-white/70 flex items-start"><i class="fas fa-circle text-primary mr-3 mt-1 text-xs"></i>Your data is retained while your account remains active</li>
+          <li class="text-white/70 flex items-start"><i class="fas fa-circle text-primary mr-3 mt-1 text-xs"></i>Upon account deletion request, your data will be permanently deleted</li>
+          <li class="text-white/70 flex items-start"><i class="fas fa-circle text-primary mr-3 mt-1 text-xs"></i>Some data may be retained for legal compliance, fraud prevention, or security purposes as required by law</li>
+        </ul>
+      </div>
+
+      <!-- User Rights -->
+      <div class="legal-section mb-12" data-aos="fade-up">
+        <h2 class="font-display font-bold text-2xl text-white mb-4">7. Your Rights</h2>
+        <div class="section-line mb-6"></div>
+        <p class="text-white/70 leading-relaxed mb-4">You have the following rights regarding your personal data:</p>
+        <div class="space-y-4">
+          <div class="bg-surface border border-[#333] rounded-xl p-5">
+            <div class="flex items-center mb-2">
+              <i class="fas fa-eye text-primary mr-3"></i>
+              <h4 class="text-white font-semibold">Right to Access</h4>
+            </div>
+            <p class="text-white/70 text-sm">Request access to the personal data we hold about you</p>
+          </div>
+          <div class="bg-surface border border-[#333] rounded-xl p-5">
+            <div class="flex items-center mb-2">
+              <i class="fas fa-pen text-primary mr-3"></i>
+              <h4 class="text-white font-semibold">Right to Correction</h4>
+            </div>
+            <p class="text-white/70 text-sm">Request correction of inaccurate or incomplete data</p>
+          </div>
+          <div class="bg-surface border border-[#333] rounded-xl p-5">
+            <div class="flex items-center mb-2">
+              <i class="fas fa-trash text-primary mr-3"></i>
+              <h4 class="text-white font-semibold">Right to Deletion</h4>
+            </div>
+            <p class="text-white/70 text-sm">Request deletion of your account and associated data</p>
+          </div>
+        </div>
+        <div class="bg-primary/10 border border-primary/30 rounded-xl p-5 mt-6">
+          <p class="text-white/80">To exercise your right to account deletion, please visit our dedicated deletion page:</p>
+          <a href="/account-deletion" class="text-primary hover:text-primary-hover font-semibold inline-flex items-center mt-2">
+            <i class="fas fa-external-link mr-2"></i>https://trivarta.in/account-deletion
+          </a>
+        </div>
+      </div>
+
+      <!-- Children's Privacy -->
+      <div class="legal-section mb-12" data-aos="fade-up">
+        <h2 class="font-display font-bold text-2xl text-white mb-4">8. Children's Privacy</h2>
+        <div class="section-line mb-6"></div>
+        <p class="text-white/70 leading-relaxed">
+          Our app is designed for use by educational institutions. We do not knowingly collect personal information from children under the age of 13 without proper school authorization and parental consent where required. If you believe we have inadvertently collected such information, please contact us immediately at <a href="mailto:trivarta.tech@gmail.com" class="text-primary hover:text-primary-hover">trivarta.tech@gmail.com</a>.
+        </p>
+      </div>
+
+      <!-- Account Deletion Reference -->
+      <div class="legal-section mb-12" data-aos="fade-up">
+        <h2 class="font-display font-bold text-2xl text-white mb-4">9. Account Deletion</h2>
+        <div class="section-line mb-6"></div>
+        <p class="text-white/70 leading-relaxed">
+          You can request complete deletion of your account and all associated personal data at any time. For detailed instructions and to submit a deletion request, please visit our dedicated <a href="/account-deletion" class="text-primary hover:text-primary-hover font-semibold">Account Deletion</a> page.
+        </p>
+      </div>
+
+      <!-- Changes to Privacy Policy -->
+      <div class="legal-section mb-12" data-aos="fade-up">
+        <h2 class="font-display font-bold text-2xl text-white mb-4">10. Changes to This Privacy Policy</h2>
+        <div class="section-line mb-6"></div>
+        <p class="text-white/70 leading-relaxed">
+          We may update this Privacy Policy from time to time to reflect changes in our practices or for legal, operational, or regulatory reasons. We will notify you of any material changes by posting the new Privacy Policy on this page and updating the "Last updated" date. We encourage you to review this Privacy Policy periodically.
+        </p>
+      </div>
+
+      <!-- Contact Information -->
+      <div class="legal-section" data-aos="fade-up">
+        <h2 class="font-display font-bold text-2xl text-white mb-4">11. Contact Information</h2>
+        <div class="section-line mb-6"></div>
+        <p class="text-white/70 leading-relaxed mb-6">If you have any questions about this Privacy Policy or our data practices, please contact us:</p>
+        <div class="bg-surface border border-[#333] rounded-2xl p-6">
+          <h3 class="text-white font-display font-bold text-lg mb-4">Trivarta Tech Pvt Ltd</h3>
+          <div class="space-y-3">
+            <div class="flex items-center">
+              <i class="fas fa-envelope text-primary w-6"></i>
+              <a href="mailto:trivarta.tech@gmail.com" class="text-white/70 hover:text-primary ml-3">trivarta.tech@gmail.com</a>
+            </div>
+            <div class="flex items-center">
+              <i class="fas fa-globe text-primary w-6"></i>
+              <a href="https://trivarta.in" target="_blank" class="text-white/70 hover:text-primary ml-3">https://trivarta.in</a>
+            </div>
+            <div class="flex items-center">
+              <i class="fas fa-mobile-screen text-primary w-6"></i>
+              <span class="text-white/70 ml-3">App: Schools 1</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-dark border-t border-white/5 py-12 md:py-16" data-testid="footer">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8">
+        <div class="md:col-span-1">
+          <a href="/" class="inline-block mb-5"><img src="assets/images/logo.png" alt="Trivarta Tech" class="h-10"></a>
+          <p class="text-white/50 text-sm leading-relaxed">Transforming Ideas into Smart Digital Solutions for educational institutions.</p>
+        </div>
+        <div>
+          <h4 class="text-white font-display font-semibold text-sm uppercase tracking-wider mb-4">Quick Links</h4>
+          <ul class="space-y-2.5">
+            <li><a href="/" class="text-white/50 hover:text-primary text-sm transition-colors">Home</a></li>
+            <li><a href="/about" class="text-white/50 hover:text-primary text-sm transition-colors">About</a></li>
+            <li><a href="/products" class="text-white/50 hover:text-primary text-sm transition-colors">Products</a></li>
+            <li><a href="/services" class="text-white/50 hover:text-primary text-sm transition-colors">Services</a></li>
+            <li><a href="/contact" class="text-white/50 hover:text-primary text-sm transition-colors">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-display font-semibold text-sm uppercase tracking-wider mb-4">Legal</h4>
+          <ul class="space-y-2.5">
+            <li><a href="/privacy-policy" class="text-white/50 hover:text-primary text-sm transition-colors">Privacy Policy</a></li>
+            <li><a href="/terms-and-conditions" class="text-white/50 hover:text-primary text-sm transition-colors">Terms & Conditions</a></li>
+            <li><a href="/account-deletion" class="text-white/50 hover:text-primary text-sm transition-colors">Account Deletion</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-display font-semibold text-sm uppercase tracking-wider mb-4">Contact</h4>
+          <ul class="space-y-2.5">
+            <li class="flex items-center text-white/50 text-sm"><i class="fas fa-envelope text-primary/70 w-5 mr-2 text-xs"></i>trivarta.tech@gmail.com</li>
+            <li class="flex items-center text-white/50 text-sm"><i class="fas fa-globe text-primary/70 w-5 mr-2 text-xs"></i>trivarta.in</li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-white/5 mt-10 pt-8 text-center">
+        <p class="text-white/30 text-sm">&copy; 2025 Trivarta Tech Pvt Ltd. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WHATSAPP FLOAT -->
+  <a href="https://wa.me/918660234312" target="_blank" class="whatsapp-float" data-testid="whatsapp-float">
+    <i class="fab fa-whatsapp"></i>
+    <span class="whatsapp-tooltip">Chat with Us</span>
+  </a>
+
+  <!-- BACK TO TOP -->
+  <button id="back-to-top" class="back-to-top" data-testid="back-to-top"><i class="fas fa-arrow-up"></i></button>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
