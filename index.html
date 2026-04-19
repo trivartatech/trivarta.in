@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>Trivarta Tech — Digital Solutions for Schools & Businesses</title>
-  <meta name="description" content="Trivarta Tech builds cutting-edge School ERP, mobile apps, web applications and digital solutions for education and enterprise."/>
+  <meta name="description" content="Trivarta Tech builds School ERP, mobile apps, and web solutions that transform how schools and businesses operate."/>
   <link rel="icon" href="assets/images/favicon.png"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -71,119 +71,172 @@
   <a href="contact.html" class="btn btn-primary" style="margin-top:8px">Get Started <i class="fas fa-arrow-right"></i></a>
 </div>
 
-<!-- HERO -->
+<!-- ═══════════ HERO ═══════════ -->
 <section class="hero">
+  <!-- background layers -->
+  <div class="aurora-bg"></div>
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
+  <div class="noise-overlay"></div>
+  <canvas class="particles-canvas"></canvas>
+
+  <!-- orbs -->
   <div class="orb orb-1"></div>
   <div class="orb orb-2"></div>
-  <div class="container">
+  <div class="orb orb-3"></div>
+
+  <div class="container" style="position:relative;z-index:3">
     <div class="hero-inner">
+
+      <!-- LEFT: text -->
       <div class="hero-text">
         <div class="hero-label">
           <span class="dot"></span>
-          India's Leading EdTech & Digital Partner
+          India's Leading EdTech &amp; Digital Partner
         </div>
-        <h1 class="hero-title">
+
+        <h1 class="hero-title" style="margin-bottom:20px">
           <span class="hero-word">Build</span>
-          <span class="hero-word gradient-text"> Smarter</span><br>
+          <span class="hero-word gradient-text-animated"> Smarter</span><br>
           <span class="hero-word">Digital</span>
           <span class="hero-word"> Products</span>
         </h1>
-        <p class="hero-sub reveal">
-          We create powerful School ERP systems, mobile apps, and web solutions that transform how schools and businesses operate.
+
+        <p class="hero-sub" style="max-width:520px">
+          We create powerful School ERP systems, mobile apps, and web solutions that transform how schools and businesses operate across India.
         </p>
-        <div class="hero-actions">
-          <a href="school-erp.html" class="btn btn-primary btn-lg magnetic">Explore School ERP <i class="fas fa-arrow-right"></i></a>
+
+        <div class="hero-actions" style="margin-top:36px">
+          <a href="school-erp.html" class="btn btn-primary btn-lg magnetic">
+            Explore School ERP <i class="fas fa-arrow-right"></i>
+          </a>
           <a href="contact.html" class="btn btn-ghost btn-lg">Talk to Us</a>
         </div>
+
+        <!-- trust line -->
+        <div style="display:flex;align-items:center;gap:12px;margin-top:36px;flex-wrap:wrap">
+          <div style="display:flex;margin-right:4px">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--s2);border:2px solid var(--bg);display:flex;align-items:center;justify-content:center;font-size:0.7rem;color:var(--red)">🏫</div>
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--s2);border:2px solid var(--bg);margin-left:-8px;display:flex;align-items:center;justify-content:center;font-size:0.7rem">🏫</div>
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--s2);border:2px solid var(--bg);margin-left:-8px;display:flex;align-items:center;justify-content:center;font-size:0.7rem">🏫</div>
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--s3);border:2px solid var(--bg);margin-left:-8px;display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:var(--muted)">+147</div>
+          </div>
+          <div>
+            <div style="display:flex;gap:2px;margin-bottom:2px">
+              <i class="fas fa-star" style="color:#FF9500;font-size:0.7rem"></i>
+              <i class="fas fa-star" style="color:#FF9500;font-size:0.7rem"></i>
+              <i class="fas fa-star" style="color:#FF9500;font-size:0.7rem"></i>
+              <i class="fas fa-star" style="color:#FF9500;font-size:0.7rem"></i>
+              <i class="fas fa-star" style="color:#FF9500;font-size:0.7rem"></i>
+            </div>
+            <div style="font-size:0.76rem;color:var(--muted)">Trusted by 150+ schools</div>
+          </div>
+        </div>
       </div>
+
+      <!-- RIGHT: floating stat cards with rings -->
       <div class="hero-visual">
+        <!-- decorative rings -->
+        <div class="hero-ring"></div>
+        <div class="hero-ring"></div>
+        <div class="hero-ring"></div>
+
         <div class="hero-stats">
-          <div class="hero-stat">
+          <div class="hero-stat shimmer-card">
             <div class="hero-stat-num gradient-text" data-counter="150" data-suffix="+">0+</div>
             <div class="hero-stat-label">Schools Onboarded</div>
           </div>
-          <div class="hero-stat">
+          <div class="hero-stat shimmer-card">
             <div class="hero-stat-num gradient-text" data-counter="50000" data-suffix="+">0+</div>
             <div class="hero-stat-label">Students Managed</div>
           </div>
-          <div class="hero-stat">
-            <div class="hero-stat-num gradient-text" data-counter="6" data-suffix="+">0+</div>
-            <div class="hero-stat-label">Years Experience</div>
+          <div class="hero-stat shimmer-card">
+            <div class="hero-stat-num gradient-text" data-counter="22" data-suffix="+">0+</div>
+            <div class="hero-stat-label">ERP Modules</div>
           </div>
-          <div class="hero-stat">
+          <div class="hero-stat shimmer-card">
             <div class="hero-stat-num gradient-text" data-counter="99" data-suffix="%">0%</div>
             <div class="hero-stat-label">Client Satisfaction</div>
           </div>
         </div>
       </div>
+
     </div>
+  </div>
+
+  <!-- scroll indicator -->
+  <div class="scroll-indicator">
+    <div class="scroll-indicator-line"></div>
+    <span>Scroll</span>
   </div>
 </section>
 
-<!-- MARQUEE -->
+<!-- ═══════════ MARQUEE ═══════════ -->
 <div class="marquee-section">
   <div class="marquee-fade marquee-fade-left"></div>
   <div class="marquee-fade marquee-fade-right"></div>
   <div class="marquee-track">
-    <span class="marquee-item"><i class="fab fa-laravel"></i>Laravel</span>
-    <span class="marquee-item"><i class="fab fa-vuejs"></i>Vue.js</span>
+    <span class="marquee-item"><i class="fab fa-laravel"></i>Laravel 12</span>
+    <span class="marquee-item"><i class="fab fa-vuejs"></i>Vue.js 3</span>
     <span class="marquee-item"><i class="fab fa-react"></i>React Native</span>
     <span class="marquee-item"><i class="fab fa-node-js"></i>Node.js</span>
-    <span class="marquee-item"><i class="fab fa-google"></i>Firebase</span>
+    <span class="marquee-item"><i class="fab fa-google"></i>Firebase FCM</span>
     <span class="marquee-item"><i class="fas fa-database"></i>MySQL</span>
     <span class="marquee-item"><i class="fab fa-android"></i>Android</span>
     <span class="marquee-item"><i class="fab fa-apple"></i>iOS</span>
     <span class="marquee-item"><i class="fas fa-map-marker-alt"></i>GPS Tracking</span>
     <span class="marquee-item"><i class="fas fa-robot"></i>AI Engine</span>
-    <!-- duplicate for seamless loop -->
-    <span class="marquee-item"><i class="fab fa-laravel"></i>Laravel</span>
-    <span class="marquee-item"><i class="fab fa-vuejs"></i>Vue.js</span>
+    <span class="marquee-item"><i class="fas fa-credit-card"></i>Razorpay</span>
+    <span class="marquee-item"><i class="fas fa-shield-alt"></i>Secure Cloud</span>
+    <!-- duplicate -->
+    <span class="marquee-item"><i class="fab fa-laravel"></i>Laravel 12</span>
+    <span class="marquee-item"><i class="fab fa-vuejs"></i>Vue.js 3</span>
     <span class="marquee-item"><i class="fab fa-react"></i>React Native</span>
     <span class="marquee-item"><i class="fab fa-node-js"></i>Node.js</span>
-    <span class="marquee-item"><i class="fab fa-google"></i>Firebase</span>
+    <span class="marquee-item"><i class="fab fa-google"></i>Firebase FCM</span>
     <span class="marquee-item"><i class="fas fa-database"></i>MySQL</span>
     <span class="marquee-item"><i class="fab fa-android"></i>Android</span>
     <span class="marquee-item"><i class="fab fa-apple"></i>iOS</span>
     <span class="marquee-item"><i class="fas fa-map-marker-alt"></i>GPS Tracking</span>
     <span class="marquee-item"><i class="fas fa-robot"></i>AI Engine</span>
+    <span class="marquee-item"><i class="fas fa-credit-card"></i>Razorpay</span>
+    <span class="marquee-item"><i class="fas fa-shield-alt"></i>Secure Cloud</span>
   </div>
 </div>
 
-<!-- PRODUCTS -->
+<!-- ═══════════ PRODUCTS ═══════════ -->
 <section class="section">
   <div class="container">
     <div class="section-head reveal">
       <div class="section-tag"><i class="fas fa-box"></i> Our Products</div>
-      <h2>Flagship Products Built for Scale</h2>
+      <h2 data-scramble>Flagship Products Built for Scale</h2>
       <p>Purpose-built software that solves real-world challenges for schools and institutions.</p>
       <div class="divider"></div>
     </div>
     <div class="grid-3">
-      <div class="card card-featured reveal reveal-d1">
+      <a href="school-erp.html" class="card card-featured shimmer-card glow-border reveal reveal-d1" style="text-decoration:none;display:block">
         <div class="card-icon"><i class="fas fa-graduation-cap"></i></div>
         <h3>School ERP</h3>
-        <p>Complete school management system with GPS tracking, AI grading, fee management, attendance, and real-time parent communication.</p>
-        <a href="school-erp.html" class="card-link">Explore Product <i class="fas fa-arrow-right"></i></a>
-      </div>
-      <div class="card reveal reveal-d2">
+        <p>Complete school management — GPS tracking, AI grading, fee collection, attendance, and real-time parent communication.</p>
+        <div class="card-link" style="margin-top:20px">Explore Product <i class="fas fa-arrow-right"></i></div>
+      </a>
+      <a href="smart-panel.html" class="card shimmer-card glow-border reveal reveal-d2" style="text-decoration:none;display:block">
         <div class="card-icon"><i class="fas fa-solar-panel"></i></div>
         <h3>Smart Panel</h3>
-        <p>Intelligent dashboard and control panel solution for managing complex business workflows and operations from one place.</p>
-        <a href="smart-panel.html" class="card-link">Explore Product <i class="fas fa-arrow-right"></i></a>
-      </div>
-      <div class="card reveal reveal-d3">
+        <p>Intelligent dashboard and control panel for managing complex business workflows and operations in one place.</p>
+        <div class="card-link" style="margin-top:20px">Explore Product <i class="fas fa-arrow-right"></i></div>
+      </a>
+      <a href="syllabus-content.html" class="card shimmer-card glow-border reveal reveal-d3" style="text-decoration:none;display:block">
         <div class="card-icon"><i class="fas fa-book-open"></i></div>
         <h3>Syllabus Content</h3>
-        <p>Digital curriculum and content management platform that helps educators organise, distribute and track educational material.</p>
-        <a href="syllabus-content.html" class="card-link">Explore Product <i class="fas fa-arrow-right"></i></a>
-      </div>
+        <p>Digital curriculum platform that helps educators organise, distribute and track educational material easily.</p>
+        <div class="card-link" style="margin-top:20px">Explore Product <i class="fas fa-arrow-right"></i></div>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- STATS -->
+<!-- ═══════════ STATS ═══════════ -->
 <section class="section-sm" style="background:var(--bg2)">
   <div class="container">
     <div class="stats-grid reveal">
@@ -207,7 +260,7 @@
   </div>
 </section>
 
-<!-- SERVICES -->
+<!-- ═══════════ SERVICES ═══════════ -->
 <section class="section">
   <div class="container">
     <div class="section-head reveal">
@@ -217,79 +270,67 @@
       <div class="divider"></div>
     </div>
     <div class="grid-3">
-      <div class="card reveal reveal-d1">
+      <a href="web-application.html" class="card shimmer-card glow-border reveal reveal-d1" style="text-decoration:none;display:block">
         <div class="card-icon"><i class="fas fa-globe"></i></div>
         <h3>Web Application</h3>
-        <p>Scalable web apps built with modern frameworks — Laravel, Vue, React. From admin panels to full SaaS platforms.</p>
-        <a href="web-application.html" class="card-link">Learn More <i class="fas fa-arrow-right"></i></a>
-      </div>
-      <div class="card reveal reveal-d2">
+        <p>Scalable web apps built with Laravel, Vue, React. From admin panels to full SaaS platforms.</p>
+        <div class="card-link" style="margin-top:20px">Learn More <i class="fas fa-arrow-right"></i></div>
+      </a>
+      <a href="mobile-application.html" class="card shimmer-card glow-border reveal reveal-d2" style="text-decoration:none;display:block">
         <div class="card-icon"><i class="fas fa-mobile-alt"></i></div>
         <h3>Mobile Application</h3>
-        <p>Cross-platform Android & iOS apps with real-time features, push notifications, offline support and smooth UX.</p>
-        <a href="mobile-application.html" class="card-link">Learn More <i class="fas fa-arrow-right"></i></a>
-      </div>
-      <div class="card reveal reveal-d3">
+        <p>Cross-platform Android &amp; iOS apps with real-time features, push notifications, and offline support.</p>
+        <div class="card-link" style="margin-top:20px">Learn More <i class="fas fa-arrow-right"></i></div>
+      </a>
+      <a href="website-development.html" class="card shimmer-card glow-border reveal reveal-d3" style="text-decoration:none;display:block">
         <div class="card-icon"><i class="fas fa-paint-brush"></i></div>
         <h3>Website Development</h3>
         <p>Pixel-perfect, responsive websites with blazing performance, modern design, and SEO optimised structure.</p>
-        <a href="website-development.html" class="card-link">Learn More <i class="fas fa-arrow-right"></i></a>
-      </div>
+        <div class="card-link" style="margin-top:20px">Learn More <i class="fas fa-arrow-right"></i></div>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- WHY US -->
+<!-- ═══════════ WHY US ═══════════ -->
 <section class="section" style="background:var(--bg2)">
   <div class="container">
     <div class="split">
       <div class="reveal-l">
         <div class="section-tag"><i class="fas fa-star"></i> Why Trivarta</div>
-        <h2>Built Different, Delivered Better</h2>
+        <h2>Built Different,<br>Delivered Better</h2>
         <p style="margin-top:16px;margin-bottom:36px">We don't just write code — we solve problems. Every product we build is grounded in deep domain knowledge and a relentless focus on user experience.</p>
-        <a href="about.html" class="btn btn-outline">About Our Team <i class="fas fa-arrow-right"></i></a>
+        <a href="about.html" class="btn btn-outline magnetic">About Our Team <i class="fas fa-arrow-right"></i></a>
       </div>
       <div class="feature-list reveal-r">
         <div class="feature-item">
           <div class="feature-icon"><i class="fas fa-rocket"></i></div>
-          <div>
-            <h4>Fast Delivery</h4>
-            <p>Agile development with weekly sprints and transparent progress tracking.</p>
-          </div>
+          <div><h4>Fast Delivery</h4><p>Agile development with weekly sprints and transparent progress tracking.</p></div>
         </div>
         <div class="feature-item">
           <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
-          <div>
-            <h4>Secure by Design</h4>
-            <p>Role-based access control, encrypted data, and security-first architecture.</p>
-          </div>
+          <div><h4>Secure by Design</h4><p>Role-based access, encrypted data, and security-first architecture.</p></div>
         </div>
         <div class="feature-item">
           <div class="feature-icon"><i class="fas fa-headset"></i></div>
-          <div>
-            <h4>Dedicated Support</h4>
-            <p>24/7 technical support with a dedicated account manager for every client.</p>
-          </div>
+          <div><h4>Dedicated Support</h4><p>24/7 technical support with a dedicated account manager per client.</p></div>
         </div>
         <div class="feature-item">
           <div class="feature-icon"><i class="fas fa-expand-arrows-alt"></i></div>
-          <div>
-            <h4>Scales With You</h4>
-            <p>From 100 to 100,000 users — our infrastructure grows with your needs.</p>
-          </div>
+          <div><h4>Scales With You</h4><p>From 100 to 100,000 users — our infrastructure grows with your needs.</p></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
+<!-- ═══════════ CTA ═══════════ -->
 <section class="section">
   <div class="container">
-    <div class="cta-block reveal">
-      <h2>Ready to transform your <span class="gradient-text">institution?</span></h2>
+    <div class="cta-block">
+      <h2>Ready to transform your <span class="gradient-text-animated">institution?</span></h2>
       <p>Join 150+ schools and businesses that trust Trivarta Tech for their digital backbone.</p>
-      <div class="cta-actions">
+      <div class="cta-actions" style="margin-top:36px">
         <a href="contact.html" class="btn btn-primary btn-lg magnetic">Start Free Demo <i class="fas fa-arrow-right"></i></a>
         <a href="https://wa.me/919999999999" class="btn-wa btn-lg" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i>WhatsApp Us</a>
       </div>
@@ -297,7 +338,7 @@
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ═══════════ FOOTER ═══════════ -->
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
@@ -332,7 +373,7 @@
         <a href="contact.html">Contact</a>
         <a href="assets/brochure/Trivarta-Tech-brochure.pdf" target="_blank">Brochure</a>
         <a href="privacy-policy.html">Privacy Policy</a>
-        <a href="terms-and-conditions.html">Terms & Conditions</a>
+        <a href="terms-and-conditions.html">Terms &amp; Conditions</a>
       </div>
     </div>
     <div class="footer-bottom">

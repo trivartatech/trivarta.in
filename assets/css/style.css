@@ -740,3 +740,328 @@ textarea.form-control{resize:vertical;min-height:130px}
   .footer-bottom{flex-direction:column;text-align:center}
   .btn-lg{padding:14px 24px;font-size:1rem}
 }
+
+/* ============================================================
+   MOTION GRAPHICS — Enhanced UI/UX
+   ============================================================ */
+
+/* ── Custom cursor ────────────────────────────────────────── */
+@media (pointer: fine) {
+  *{cursor:none!important}
+}
+.cursor-dot{
+  position:fixed;width:6px;height:6px;
+  background:var(--red);border-radius:50%;
+  pointer-events:none;z-index:10000;
+  transform:translate(-50%,-50%);
+  transition:opacity 0.2s, transform 0.15s;
+  will-change:left,top;
+}
+.cursor-ring{
+  position:fixed;width:36px;height:36px;
+  border:1.5px solid rgba(255,59,48,0.55);
+  border-radius:50%;pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:width 0.25s var(--ease),height 0.25s var(--ease),
+             border-color 0.25s,opacity 0.2s;
+  will-change:left,top;
+}
+.cursor-ring.hover{
+  width:58px;height:58px;
+  border-color:rgba(255,59,48,0.85);
+  background:rgba(255,59,48,0.06);
+}
+.cursor-ring.clicking{
+  width:28px;height:28px;
+  background:rgba(255,59,48,0.15);
+}
+
+/* ── Rotating glow border on cards ───────────────────────── */
+@property --glow-angle{syntax:'<angle>';initial-value:0deg;inherits:false}
+@keyframes rotateBorder{to{--glow-angle:360deg}}
+
+.glow-border{position:relative;z-index:0}
+.glow-border::before{
+  content:'';position:absolute;inset:-1px;
+  border-radius:inherit;
+  background:conic-gradient(
+    from var(--glow-angle),
+    transparent 0deg,
+    var(--red) 60deg,
+    var(--orange) 120deg,
+    transparent 200deg
+  );
+  z-index:-1;opacity:0;
+  animation:rotateBorder 3s linear infinite;
+  transition:opacity 0.3s;
+}
+.glow-border:hover::before{opacity:1}
+.glow-border::after{
+  content:'';position:absolute;inset:1px;
+  border-radius:calc(var(--r-lg) - 1px);
+  background:var(--s1);z-index:-1;
+}
+
+/* ── Card shimmer sweep ───────────────────────────────────── */
+@keyframes shimmerSweep{
+  0%{transform:translateX(-100%) skewX(-12deg)}
+  100%{transform:translateX(200%) skewX(-12deg)}
+}
+.shimmer-card{position:relative;overflow:hidden}
+.shimmer-card::after{
+  content:'';position:absolute;
+  top:0;left:0;width:40%;height:100%;
+  background:linear-gradient(90deg,
+    transparent,
+    rgba(255,255,255,0.04),
+    transparent
+  );
+  transform:translateX(-100%) skewX(-12deg);
+  pointer-events:none;
+}
+.shimmer-card:hover::after{
+  animation:shimmerSweep 0.7s ease forwards;
+}
+
+/* ── Aurora hero background ──────────────────────────────── */
+@keyframes auroraShift{
+  0%,100%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+}
+.aurora-bg{
+  position:absolute;inset:0;
+  background:linear-gradient(
+    -45deg,
+    rgba(255,59,48,0.08),
+    rgba(255,149,0,0.05),
+    rgba(255,59,48,0.1),
+    transparent,
+    rgba(255,149,0,0.06)
+  );
+  background-size:400% 400%;
+  animation:auroraShift 12s ease infinite;
+}
+
+/* ── Floating particle dots ──────────────────────────────── */
+.particles-canvas{
+  position:absolute;inset:0;
+  z-index:0;pointer-events:none;
+  opacity:0.45;
+}
+
+/* ── Number counter rings ─────────────────────────────────── */
+.stat-ring-wrap{
+  position:relative;display:inline-flex;
+  align-items:center;justify-content:center;
+}
+.stat-ring{
+  position:absolute;width:80px;height:80px;
+  border-radius:50%;
+  border:1px solid rgba(255,59,48,0.12);
+  animation:ringPulse 2.5s ease-in-out infinite;
+}
+.stat-ring:nth-child(2){
+  width:104px;height:104px;
+  animation-delay:0.4s;
+  border-color:rgba(255,59,48,0.06);
+}
+@keyframes ringPulse{
+  0%,100%{transform:scale(1);opacity:0.6}
+  50%{transform:scale(1.08);opacity:0.2}
+}
+
+/* ── Gradient animated text ──────────────────────────────── */
+@keyframes gradientFlow{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+.gradient-text-animated{
+  background:linear-gradient(90deg,#FF3B30,#FF9500,#FF3B30);
+  background-size:200% auto;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:gradientFlow 4s linear infinite;
+}
+
+/* ── Clip-path reveal ─────────────────────────────────────── */
+.clip-reveal{
+  clip-path:inset(0 100% 0 0);
+  transition:clip-path 0.9s cubic-bezier(0.77,0,0.175,1);
+}
+.clip-reveal.in{clip-path:inset(0 0% 0 0)}
+
+/* ── Stagger char animation ───────────────────────────────── */
+.char-wrap{overflow:hidden;display:inline-block}
+.char{
+  display:inline-block;
+  transform:translateY(110%);
+  transition:transform 0.6s cubic-bezier(0.16,1,0.3,1);
+}
+.char.in{transform:translateY(0)}
+
+/* ── Magnetic button enhancement ─────────────────────────── */
+.btn-primary,.btn-ghost,.btn-outline,.btn-wa{
+  position:relative;overflow:hidden;
+}
+
+/* ── Floating label tag ───────────────────────────────────── */
+@keyframes floatLabel{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-5px)}
+}
+.section-tag{animation:floatLabel 3s ease-in-out infinite}
+
+/* ── Noise grain overlay ──────────────────────────────────── */
+.noise-overlay{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-repeat:repeat;background-size:100px 100px;
+  opacity:0.35;
+}
+
+/* ── Animated divider line ────────────────────────────────── */
+.divider{
+  width:0!important;
+  transition:width 1s cubic-bezier(0.16,1,0.3,1) 0.3s;
+}
+.divider.in{width:56px!important}
+
+/* ── Hero stat card glow ──────────────────────────────────── */
+.hero-stat{
+  position:relative;overflow:hidden;
+  transition:border-color 0.3s,transform 0.3s,box-shadow 0.3s;
+}
+.hero-stat:hover{
+  border-color:rgba(255,59,48,0.35);
+  transform:translateY(-6px) scale(1.02);
+  box-shadow:0 16px 48px rgba(0,0,0,0.4),
+             0 0 32px rgba(255,59,48,0.12);
+}
+
+/* ── Scroll-triggered line draw ──────────────────────────── */
+.line-draw{
+  height:2px;background:var(--grad);border-radius:2px;
+  width:0;transition:width 1s cubic-bezier(0.16,1,0.3,1);
+}
+.line-draw.in{width:100%}
+
+/* ── Feature item hover animation ───────────────────────── */
+.feature-item{cursor:default}
+.feature-item:hover .feature-icon{
+  background:rgba(255,59,48,0.2);
+  transform:scale(1.1) rotate(-5deg);
+  transition:all 0.3s var(--ease);
+}
+
+/* ── Section entrance: scale + fade ─────────────────────── */
+.reveal-scale{
+  opacity:0;transform:scale(0.93) translateY(20px);
+  transition:opacity 0.7s var(--ease-out),transform 0.7s var(--ease-out);
+}
+.reveal-scale.in{opacity:1;transform:scale(1) translateY(0)}
+
+/* ── Glow orb pulse ──────────────────────────────────────── */
+.orb{animation-timing-function:ease-in-out}
+.orb-3{
+  position:absolute;
+  width:300px;height:300px;
+  background:radial-gradient(circle,rgba(255,149,0,0.12),transparent 70%);
+  bottom:20%;left:40%;
+  filter:blur(60px);
+  border-radius:50%;pointer-events:none;opacity:0.4;
+  animation:orbFloat 18s ease-in-out infinite;
+  animation-delay:-8s;
+}
+
+/* ── Marquee fast-on-hover off ───────────────────────────── */
+.marquee-track{transition:animation-play-state 0.1s}
+
+/* ── Role card glow on hover ─────────────────────────────── */
+.role-card:hover{
+  box-shadow:0 0 24px rgba(255,59,48,0.15);
+}
+
+/* ── Module chip glow ────────────────────────────────────── */
+.module-chip:hover{
+  box-shadow:0 0 16px rgba(255,59,48,0.15);
+}
+
+/* ── Scroll indicator in hero ────────────────────────────── */
+.scroll-indicator{
+  position:absolute;bottom:36px;left:50%;
+  transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  font-size:0.72rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;
+  animation:floatLabel 2s ease-in-out infinite;
+  z-index:2;
+}
+.scroll-indicator-line{
+  width:1px;height:40px;
+  background:linear-gradient(to bottom,var(--red),transparent);
+  animation:lineGrow 2s ease-in-out infinite;
+}
+@keyframes lineGrow{
+  0%{transform:scaleY(0);transform-origin:top}
+  50%{transform:scaleY(1);transform-origin:top}
+  51%{transform:scaleY(1);transform-origin:bottom}
+  100%{transform:scaleY(0);transform-origin:bottom}
+}
+
+/* ── Navbar link hover underline animation ───────────────── */
+.nav-link{position:relative}
+.nav-link::after{
+  content:'';position:absolute;bottom:4px;left:14px;right:14px;
+  height:1px;background:var(--red);
+  transform:scaleX(0);transform-origin:right;
+  transition:transform 0.3s var(--ease);
+}
+.nav-link:hover::after,.nav-link.active::after{
+  transform:scaleX(1);transform-origin:left;
+}
+
+/* ── Card entrance: flip up ──────────────────────────────── */
+.flip-up{
+  opacity:0;transform:perspective(600px) rotateX(18deg) translateY(24px);
+  transition:opacity 0.7s var(--ease-out),transform 0.7s var(--ease-out);
+}
+.flip-up.in{opacity:1;transform:perspective(600px) rotateX(0) translateY(0)}
+
+/* ── Glowing background on section tag ───────────────────── */
+.section-tag::before{
+  content:'';position:absolute;inset:-1px;border-radius:inherit;
+  background:var(--grad);z-index:-1;opacity:0;
+  filter:blur(8px);transition:opacity 0.3s;
+}
+.section-tag{position:relative;z-index:0}
+.section-tag:hover::before{opacity:0.4}
+
+/* ── Stats counter flash ─────────────────────────────────── */
+@keyframes countFlash{
+  0%,100%{opacity:1}
+  50%{opacity:0.6;transform:scale(1.05)}
+}
+.stat-num.counted{animation:countFlash 0.4s ease}
+
+/* ── Hero visual: animated ring ──────────────────────────── */
+.hero-ring{
+  position:absolute;border-radius:50%;
+  border:1px solid rgba(255,59,48,0.1);
+  pointer-events:none;
+  animation:ringExpand 4s ease-in-out infinite;
+}
+.hero-ring:nth-child(1){width:200px;height:200px;top:-20px;right:-20px;animation-delay:0s}
+.hero-ring:nth-child(2){width:320px;height:320px;top:-60px;right:-60px;animation-delay:0.7s}
+.hero-ring:nth-child(3){width:440px;height:440px;top:-100px;right:-100px;animation-delay:1.4s}
+@keyframes ringExpand{
+  0%,100%{transform:scale(1);opacity:0.6}
+  50%{transform:scale(1.04);opacity:0.25}
+}
+
+/* ── Reduce motion support ────────────────────────────────── */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important}
+  .cursor-dot,.cursor-ring{display:none}
+}
+
