@@ -195,7 +195,7 @@
         if (p.y > H) p.y = 0;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(255,59,48,' + p.o + ')';
+        ctx.fillStyle = 'rgba(239,68,68,' + p.o + ')';
         ctx.fill();
       });
       /* connect nearby particles */
@@ -206,7 +206,7 @@
           var dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < 90) {
             ctx.beginPath();
-            ctx.strokeStyle = 'rgba(255,59,48,' + (0.06 * (1 - dist / 90)) + ')';
+            ctx.strokeStyle = 'rgba(239,68,68,' + (0.06 * (1 - dist / 90)) + ')';
             ctx.lineWidth = 0.5;
             ctx.moveTo(particles[a].x, particles[a].y);
             ctx.lineTo(particles[b].x, particles[b].y);
@@ -478,4 +478,59 @@
     document.documentElement.style.opacity = '1';
   });
 
+
+  /* ── Sticky CTA bar ──────────────────────────────── */
+  (function(){
+    var bar = document.querySelector('.sticky-cta');
+    if(!bar) return;
+    var closed = false;
+    var closeBtn = bar.querySelector('.sticky-cta-close');
+    if(closeBtn) closeBtn.addEventListener('click', function(){
+      bar.classList.remove('show');
+      closed = true;
+    });
+    window.addEventListener('scroll', function(){
+      if(closed) return;
+      var scrollY = window.scrollY;
+      var docH = document.documentElement.scrollHeight;
+      var winH = window.innerHeight;
+      var nearBottom = scrollY + winH > docH - 300;
+      if(scrollY > 400 && !nearBottom){
+        bar.classList.add('show');
+      } else {
+        bar.classList.remove('show');
+      }
+    }, {passive:true});
+  })();
+
+  /* ── Page transition (fade-out on navigate) ──────── */
+  (function(){
+    document.addEventListener('click', function(e){
+      var link = e.target.closest('a[href]');
+      if(!link) return;
+      var href = link.getAttribute('href');
+      if(!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto') || href.startsWith('tel') || href.startsWith('https') || link.target === '_blank') return;
+      e.preventDefault();
+      document.documentElement.classList.add('page-transition-out');
+      setTimeout(function(){ window.location.href = href; }, 260);
+    });
+  })();
+
+  /* ── Cookie consent ──────────────────────────────── */
+  (function(){
+    if(localStorage.getItem('cookie-consent')) return;
+    var bar = document.createElement('div');
+    bar.className = 'cookie-bar';
+    bar.id = 'cookie-bar';
+    bar.innerHTML = '<p>We use cookies to improve your experience. By continuing, you agree to our <a href="privacy-policy.html">Privacy Policy</a>.</p><div class="cookie-bar-btns"><button class="btn btn-primary btn-sm" id="cookie-accept">Accept All</button><button class="btn btn-ghost btn-sm" id="cookie-decline">Decline</button></div>';
+    document.body.appendChild(bar);
+    setTimeout(function(){ bar.classList.add('show'); }, 1200);
+    function dismiss(val){
+      localStorage.setItem('cookie-consent', val);
+      bar.classList.remove('show');
+      setTimeout(function(){ bar.remove(); }, 400);
+    }
+    document.getElementById('cookie-accept').addEventListener('click', function(){ dismiss('accepted'); });
+    document.getElementById('cookie-decline').addEventListener('click', function(){ dismiss('declined'); });
+  })();
 }());

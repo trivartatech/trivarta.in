@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://trivarta.in/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://trivarta.in/about.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://trivarta.in/contact.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://trivarta.in/school-erp.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://trivarta.in/smart-panel.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://trivarta.in/syllabus-content.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://trivarta.in/web-application.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://trivarta.in/mobile-application.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://trivarta.in/website-development.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://trivarta.in/products.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trivarta.in/services.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trivarta.in/privacy-policy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://trivarta.in/terms-and-conditions.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://trivarta.in/account-deletion.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+</urlset>
