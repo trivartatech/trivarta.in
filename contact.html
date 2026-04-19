@@ -79,24 +79,24 @@
       <div class="card reveal-l" style="padding:40px">
         <h3 style="margin-bottom:4px">Send a Message</h3>
         <p style="font-size:0.9rem;margin-bottom:28px">We'll get back to you within 4 business hours.</p>
-        <form action="#" method="post">
+        <form id="contact-form" onsubmit="sendToWhatsApp(event)">
           <div class="grid-2" style="gap:16px">
             <div class="form-group">
               <label>Full Name *</label>
-              <input type="text" class="form-control" placeholder="Your name" required/>
+              <input id="cf-name" type="text" class="form-control" placeholder="Your name" required/>
             </div>
             <div class="form-group">
               <label>Phone Number *</label>
-              <input type="tel" class="form-control" placeholder="+91 00000 00000" required/>
+              <input id="cf-phone" type="tel" class="form-control" placeholder="+91 00000 00000" required/>
             </div>
           </div>
           <div class="form-group">
             <label>Email Address *</label>
-            <input type="email" class="form-control" placeholder="you@school.com" required/>
+            <input id="cf-email" type="email" class="form-control" placeholder="you@school.com" required/>
           </div>
           <div class="form-group">
             <label>Interested In</label>
-            <select class="form-control">
+            <select id="cf-interest" class="form-control">
               <option value="">Select a product / service</option>
               <option>School ERP</option>
               <option>Smart Panel</option>
@@ -109,16 +109,37 @@
           </div>
           <div class="form-group">
             <label>School / Organisation Name</label>
-            <input type="text" class="form-control" placeholder="Your school or company name"/>
+            <input id="cf-org" type="text" class="form-control" placeholder="Your school or company name"/>
           </div>
           <div class="form-group">
             <label>Message</label>
-            <textarea class="form-control" placeholder="Tell us about your needs..."></textarea>
+            <textarea id="cf-message" class="form-control" placeholder="Tell us about your needs..."></textarea>
           </div>
           <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">
             Send Message <i class="fas fa-paper-plane"></i>
           </button>
         </form>
+        <script>
+        function sendToWhatsApp(e) {
+          e.preventDefault();
+          var name    = document.getElementById('cf-name').value.trim();
+          var phone   = document.getElementById('cf-phone').value.trim();
+          var email   = document.getElementById('cf-email').value.trim();
+          var interest= document.getElementById('cf-interest').value.trim();
+          var org     = document.getElementById('cf-org').value.trim();
+          var message = document.getElementById('cf-message').value.trim();
+          var text =
+            '🔔 *New Enquiry — Trivarta Tech*\n\n' +
+            '👤 *Name:* ' + name + '\n' +
+            '📞 *Phone:* ' + phone + '\n' +
+            '📧 *Email:* ' + email + '\n' +
+            (interest ? '🎯 *Interested In:* ' + interest + '\n' : '') +
+            (org      ? '🏫 *Organisation:* ' + org + '\n'      : '') +
+            (message  ? '\n💬 *Message:*\n' + message            : '');
+          var url = 'https://wa.me/918660234312?text=' + encodeURIComponent(text);
+          window.open(url, '_blank');
+        }
+        </script>
       </div>
 
       <!-- INFO -->
